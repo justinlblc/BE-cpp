@@ -29,8 +29,8 @@ std::vector<int> Milieu::collision(){
    std::vector<int> collisions;
    int k = static_cast<int>(listeBestioles.size());
    for (int i =0; i<k; i++){
-      for (int j = 0; j<k;i++){
-         if(!(listeBestioles[i]==listeBestioles[j])){
+      for (int j = 0; j<k;j++){
+         if (i!=j){
             double dist = std::sqrt((listeBestioles[j].getX()-listeBestioles[i].getX())*(listeBestioles[j].getX()-listeBestioles[i].getX()) + (listeBestioles[j].getY()-listeBestioles[i].getY())*(listeBestioles[j].getY()-listeBestioles[i].getY()));
             if (dist<=8){
                collisions.push_back(i);
@@ -42,33 +42,21 @@ std::vector<int> Milieu::collision(){
    std::sort(collisions.begin(), collisions.end());
    auto last = std::unique(collisions.begin(), collisions.end());
    collisions.erase(last, collisions.end());
-   
    return collisions;
 }
 
 void Milieu::step( void ){
-   std::vector<int> collisions = this->collision();
-   int k = static_cast<int>(collisions.size());
-   for (int i =0; i<k;i++){
-      double v = std::rand();
-      if (v<=listeBestioles[i].getCollision()){
-         listeBestioles.erase(listeBestioles.begin() + i);
-         if (i<k-1){
-            for (int j = i+1; j<k;j++){
-               collisions[j]-=1;
-            }
-         }
-      }
-      else {
-         listeBestioles[i].setOrientation();
-      }
-   }
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    
    for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       it->action( *this );
       it->draw( *this );  
+   }
+   std::vector<int> collisions = this->collision();
+   int k = static_cast<int>(collisions.size());
+   for (int i =0; i<k;i++){
+      listeBestioles[i].setOrientation();
    }
 }
 
