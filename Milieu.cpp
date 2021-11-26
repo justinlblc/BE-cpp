@@ -27,8 +27,9 @@ Milieu::~Milieu( void )
 
 std::vector<int> Milieu::collision(){
    std::vector<int> collisions;
-   for (int i =0; i<listeBestioles.size(); i++){
-      for (int j = 0; j<listeBestioles.size();i++){
+   int k = static_cast<int>(listeBestioles.size());
+   for (int i =0; i<k; i++){
+      for (int j = 0; j<k;i++){
          if(!(listeBestioles[i]==listeBestioles[j])){
             double dist = std::sqrt((listeBestioles[j].getX()-listeBestioles[i].getX())*(listeBestioles[j].getX()-listeBestioles[i].getX()) + (listeBestioles[j].getY()-listeBestioles[i].getY())*(listeBestioles[j].getY()-listeBestioles[i].getY()));
             if (dist<=8){
@@ -43,9 +44,9 @@ std::vector<int> Milieu::collision(){
    collisions.erase(last, collisions.end());
 }
 
-void Milieu::step( void )
-{
+void Milieu::step( void ){
    std::vector<int> collisions = this->collision();
+   int k = static_cast<int>(colissions.size());
    for (int i =0; i<collisions.size();i++){
       double v = std::rand();
       if (v<listeBestioles[i].getCollision()){
