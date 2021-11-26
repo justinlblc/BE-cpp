@@ -11,6 +11,7 @@ const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
+double            collision = 0.5;
 
 
 Bestiole::Bestiole(  )
@@ -153,6 +154,10 @@ int Bestiole::getY(){
 }
 void Bestiole::setOrientation(){
    this->orientation=M_PI - orientation;
+}
+
+double Bestiole::getCollision(){
+   return this->collision;
 }
 
 

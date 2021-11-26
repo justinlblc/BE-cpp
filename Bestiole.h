@@ -28,7 +28,7 @@ private :
    double            cumulX, cumulY;
    double            orientation;
    double            vitesse;
-
+   double            collision;
    T               * couleur;
 
 private :
@@ -50,6 +50,7 @@ public :                                           // Forme canonique :
    int getX();
    int getY();
    void setOrientation();
+   double getCollision();
 };
 
 

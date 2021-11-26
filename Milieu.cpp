@@ -2,7 +2,7 @@
 
 #include <cstdlib>
 #include <ctime>
-
+#include <cmath>
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -39,8 +39,20 @@ void Milieu::step( void )
          if (!(jt==it)){
             double dist = std::sqrt( (jt->getX()-it->getX())*(jt->getX()-it->getX()) + (jt->getY()-it->getY())*(jt->getY()-it->getY());
             if (dist<=8){
+               int test = (rand() % 10 + 1);
+               test = static_cast<double>(test)/10;
+               if (test<=jt->getCollision()){
+                  delete(jt);
+               }
+               else {
                jt->setOrientation();
+               }
+               if (test<=it->getCollision()){
+                  delete(it);
+               }
+               else {
                it->setOrientation();
+               }
             }
          }
       }
