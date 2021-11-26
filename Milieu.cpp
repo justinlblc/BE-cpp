@@ -51,10 +51,12 @@ void Milieu::step( void ){
    int k = static_cast<int>(collisions.size());
    for (int i =0; i<k;i++){
       double v = std::rand();
-      if (v<listeBestioles[i].getCollision()){
+      if (v<=listeBestioles[i].getCollision()){
          listeBestioles.erase(listeBestioles.begin() + i);
-         for (int j = i+1; j<k;j++){
-            collisions[j]-=1;
+         if (i<k){
+            for (int j = i+1; j<k;j++){
+               collisions[j]-=1;
+            }
          }
       }
       else {
