@@ -35,7 +35,14 @@ void Milieu::step( void )
 
       it->action( *this );
       it->draw( *this );
-
+      for (std::vector<Bestiole>::iterator jt = listeBestioles.begin() ; jt != listeBestioles.end() ; ++jt){
+         if (!(jt==it)){
+            if (jt->getX()==it->getX() && jt->getY()==it->getY() ){
+               jt->setOrientation();
+               it->setOrientation();
+            }
+         }
+      }
    } // for
 
 }

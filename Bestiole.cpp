@@ -13,7 +13,7 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole( void )
+Bestiole::Bestiole(  )
 {
 
    identite = ++next;
@@ -102,14 +102,13 @@ void Bestiole::bouge( int xLim, int yLim )
       y = static_cast<int>( ny );
       cumulY += ny - y;
    }
-
 }
 
 
 void Bestiole::action( Milieu & monMilieu )
 {
 
-   bouge( monMilieu.getWidth(), monMilieu.getHeight() );
+   bouge( monMilieu.getWidth(), monMilieu.getHeight());
 
 }
 
@@ -145,3 +144,15 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
    return ( dist <= LIMITE_VUE );
 
 }
+
+int Bestiole::getX(){
+   return this->x;
+}
+int Bestiole::getY(){
+   return this->y;
+}
+void Bestiole::setOrientation(){
+   this->orientation=M_PI - orientation;
+}
+
+

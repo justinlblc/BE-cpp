@@ -32,7 +32,7 @@ private :
    T               * couleur;
 
 private :
-   void bouge( int xLim, int yLim );
+   void bouge( int xLim, int yLim, Milieu & monMilieu );
 
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
@@ -47,7 +47,9 @@ public :                                           // Forme canonique :
    void initCoords( int xLim, int yLim );
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-
+   int getX();
+   int getY();
+   void setOrientation();
 };
 
 
