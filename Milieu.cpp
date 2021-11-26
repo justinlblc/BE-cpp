@@ -46,12 +46,12 @@ std::vector<int> Milieu::collision(){
 
 void Milieu::step( void ){
    std::vector<int> collisions = this->collision();
-   int k = static_cast<int>(colissions.size());
+   int k = static_cast<int>(collisions.size());
    for (int i =0; i<collisions.size();i++){
       double v = std::rand();
       if (v<listeBestioles[i].getCollision()){
          listeBestioles.erase(listeBestioles.begin() + i);
-         for (int j = i+1; j<collisions.size();j++){
+         for (int j = i+1; j<k;j++){
             collisions[j]-=1;
          }
       }
