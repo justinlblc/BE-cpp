@@ -32,7 +32,7 @@ private :
    T               * couleur;
 
 private :
-   void bouge( int xLim, int yLim, Milieu & monMilieu );
+   void bouge( int xLim, int yLim );
 
 public :                                           // Forme canonique :
    Bestiole( void );                               // Constructeur par defaut
