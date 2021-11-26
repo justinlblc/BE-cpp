@@ -47,7 +47,7 @@ std::vector<int> Milieu::collision(){
 void Milieu::step( void ){
    std::vector<int> collisions = this->collision();
    int k = static_cast<int>(collisions.size());
-   for (int i =0; i<collisions.size();i++){
+   for (int i =0; i<k;i++){
       double v = std::rand();
       if (v<listeBestioles[i].getCollision()){
          listeBestioles.erase(listeBestioles.begin() + i);
@@ -60,7 +60,6 @@ void Milieu::step( void ){
       }
    }
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   int i = 0;
    
    for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
@@ -74,10 +73,11 @@ int Milieu::nbVoisins( const Bestiole & b ){
    int         nb = 0;
 
 
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-      if ( !(b == *it) && b.jeTeVois(*it) )
+   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
+      if ( !(b == *it) && b.jeTeVois(*it) ){
          ++nb;
-
+      }
+   }
    return nb;
 
 }
