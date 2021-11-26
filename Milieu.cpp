@@ -42,6 +42,8 @@ std::vector<int> Milieu::collision(){
    std::sort(collisions.begin(), collisions.end());
    auto last = std::unique(collisions.begin(), collisions.end());
    collisions.erase(last, collisions.end());
+   
+   return collisions;
 }
 
 void Milieu::step( void ){
@@ -65,19 +67,17 @@ void Milieu::step( void ){
    {
       it->action( *this );
       it->draw( *this );  
+   }
 }
-
 
 int Milieu::nbVoisins( const Bestiole & b ){
 
    int         nb = 0;
 
 
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it ){
-      if ( !(b == *it) && b.jeTeVois(*it) ){
+   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+      if ( !(b == *it) && b.jeTeVois(*it) )
          ++nb;
-      }
-   }
    return nb;
 
 }
