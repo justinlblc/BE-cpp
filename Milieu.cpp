@@ -37,7 +37,8 @@ void Milieu::step( void )
       it->draw( *this );
       for (std::vector<Bestiole>::iterator jt = listeBestioles.begin() ; jt != listeBestioles.end() ; ++jt){
          if (!(jt==it)){
-            if (jt->getX()==it->getX() && jt->getY()==it->getY() ){
+            double dist = std::sqrt( (jt->getX()-it->getX())*(jt->getX()-it->getX()) + (jt->getY()-it->getY())*(jt->getY()-it->getY());
+            if (dist<=8){
                jt->setOrientation();
                it->setOrientation();
             }
