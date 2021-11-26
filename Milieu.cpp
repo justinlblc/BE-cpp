@@ -25,44 +25,50 @@ Milieu::~Milieu( void )
 
 }
 
-
-void Milieu::step( void )
-{
-
-   cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
-   {
-
-      it->action( *this );
-      it->draw( *this );
-      for (std::vector<Bestiole>::iterator jt = listeBestioles.begin() ; jt != listeBestioles.end() ; ++jt){
-         if (!(jt==it)){
-            double dist = std::sqrt( (jt->getX()-it->getX())*(jt->getX()-it->getX()) + (jt->getY()-it->getY())*(jt->getY()-it->getY());
+std::vector<int> Milieu::collision(){
+   std::vector<int> collisions;
+   for (int i =0; i<listeBestioles.size(); i++){
+      for (int j = 0; j<listeBestioles.size();i++){
+         if(!(listeBestioles[i]==listeBestioles[j])){
+            double dist = std::sqrt((listeBestioles[j].getX()-listeBestioles[i].getX())*(listeBestioles[j].getX()-listeBestioles[i].getX()) + (listeBestioles[j].getY()-listeBestioles[i].getY())*(listeBestioles[j].getY()-listeBestioles[i].getY()));
             if (dist<=8){
-               int test = (rand() % 10 + 1);
-               test = static_cast<double>(test)/10;
-               if (test<=jt->getCollision()){
-                  delete(jt);
-               }
-               else {
-               jt->setOrientation();
-               }
-               if (test<=it->getCollision()){
-                  delete(it);
-               }
-               else {
-               it->setOrientation();
-               }
+               collisions.push_back(i);
+               collisions.push_back(j);
             }
          }
       }
-   } // for
+   }
+   std::sort(collisions.begin(), collisions.end());
+   auto last = std::unique(collisions.begin(), collisions.end());
+   collisions.erase(last, collisions.end());
+}
 
+void Milieu::step( void )
+{
+   std::vector<int> collisions = this->collision();
+   for (int i =0; i<collisions.size();i++){
+      double v = std::rand();
+      if (v<listeBestioles[i].getCollision()){
+         listeBestioles.erase(listeBestioles.begin() + i);
+         for (int j = i+1; j<collisions.size();j++){
+            collisions[j]-=1;
+         }
+      }
+      else {
+         listeBestioles[i].setOrientation();
+      }
+   }
+   cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
+   int i = 0;
+   
+   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   {
+      it->action( *this );
+      it->draw( *this );  
 }
 
 
-int Milieu::nbVoisins( const Bestiole & b )
-{
+int Milieu::nbVoisins( const Bestiole & b ){
 
    int         nb = 0;
 
