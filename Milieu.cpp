@@ -25,26 +25,6 @@ Milieu::~Milieu( void )
 
 }
 
-std::vector<int> Milieu::collision(){
-   std::vector<int> collisions;
-   int k = static_cast<int>(listeBestioles.size());
-   for (int i =0; i<k; i++){
-      for (int j = 0; j<k;j++){
-         if (i!=j){
-            double dist = std::sqrt((listeBestioles[j].getX()-listeBestioles[i].getX())*(listeBestioles[j].getX()-listeBestioles[i].getX()) + (listeBestioles[j].getY()-listeBestioles[i].getY())*(listeBestioles[j].getY()-listeBestioles[i].getY()));
-            if (dist<=8){
-               collisions.push_back(i);
-               collisions.push_back(j);
-            }
-         }
-      }
-   }
-   std::sort(collisions.begin(), collisions.end());
-   auto last = std::unique(collisions.begin(), collisions.end());
-   collisions.erase(last, collisions.end());
-   return collisions;
-}
-
 void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    
@@ -53,10 +33,37 @@ void Milieu::step( void ){
       it->action( *this );
       it->draw( *this );  
    }
-   std::vector<int> collisions = this->collision();
-   int k = static_cast<int>(collisions.size());
-   for (int i =0; i<k;i++){
-      listeBestioles[i].setOrientation();
+   std::vector<int> collisions;
+   int k = listeBestioles.size();
+   for (int i = 0; i<k; i++){
+      for (int j = i; j<k; j++){
+         double dist = std::sqrt((listeBestioles[i].getX()-listeBestioles[j].getX())*(listeBestioles[i].getX()-listeBestioles[j].getX())+(listeBestioles[i].getY()-listeBestioles[j].getY())*(listeBestioles[i].getY()-listeBestioles[j].getY()));
+         if (dist<8 && j!=i){
+            collisions.push_back(j);
+            collisions.push_back(i);
+         }
+      } 
+   }
+   std::sort(collisions.begin(), collisions.end());
+   auto last = std::unique(collisions.begin(),collisions.end());
+   collisions.erase(last, collisions.end());
+   int m = collisions.size();
+   for(int i = 0; i<m;i++){
+      double test = (double) std::rand() / (RAND_MAX);
+      if (test<=0.5){
+         cout<< "before delete: " << listeBestioles.size()<<endl;
+         cout << "supprimer la bestiole n° "<< collisions[i]<<endl;
+         listeBestioles.erase(listeBestioles.begin() + collisions[i]);
+         cout<< "after delete: " << listeBestioles.size()<<endl;
+         if (i!=m-1){
+            for (int j=i+1;j<m;j++){
+               collisions[j]=collisions[j]-1;
+            }
+         }
+      }
+      else{
+         listeBestioles[collisions[i]].setOrientation();
+      }
    }
 }
 

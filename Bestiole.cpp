@@ -11,13 +11,13 @@ const double      Bestiole::MAX_VITESSE = 10.;
 const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
-double            collision = 0.5;
 
 
 Bestiole::Bestiole(  )
 {
 
    identite = ++next;
+   this->collision = 0.5;
 
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
@@ -40,7 +40,6 @@ Bestiole::Bestiole( const Bestiole & b )
    identite = ++next;
 
    cout << "const Bestiole (" << identite << ") par copie" << endl;
-
    x = b.x;
    y = b.y;
    cumulX = cumulY = 0.;
