@@ -45,6 +45,7 @@ Bestiole::Bestiole( const Bestiole & b )
    cumulX = cumulY = 0.;
    orientation = b.orientation;
    vitesse = b.vitesse;
+   collision=b.collision;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
@@ -158,5 +159,25 @@ void Bestiole::setOrientation(){
 double Bestiole::getCollision(){
    return this->collision;
 }
+Bestiole& Bestiole::operator=(Bestiole&& b){   
+   if (this != &b){
 
+      std::swap(x, b.x);
+      std::swap(y, b.y);
+      cumulX = cumulY = 0.;
+      std::swap(orientation, b.orientation);
+      std::swap(vitesse, b.vitesse);
+      std::swap(collision, b.collision);
+
+      delete[] couleur;
+
+      couleur = new T[ 3 ];
+      std::swap(couleur[0], b.couleur[0]);
+      std::swap(couleur[1], b.couleur[1]);
+      std::swap(couleur[2], b.couleur[2]);
+   }
+   return *this;
+
+
+}
 

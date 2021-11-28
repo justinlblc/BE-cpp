@@ -47,6 +47,7 @@ void Milieu::step( void ){
    std::sort(collisions.begin(), collisions.end());
    auto last = std::unique(collisions.begin(),collisions.end());
    collisions.erase(last, collisions.end());
+   
    int m = collisions.size();
    for(int i = 0; i<m;i++){
       double test = (double) std::rand() / (RAND_MAX);

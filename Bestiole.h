@@ -51,6 +51,7 @@ public :                                           // Forme canonique :
    int getY();
    void setOrientation();
    double getCollision();
+   Bestiole& operator=(Bestiole&& bestiole);
 };
 
 
