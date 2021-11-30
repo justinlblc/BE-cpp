@@ -16,7 +16,21 @@ class Milieu : public UImg
 
 private :
    static const T          white[];
+
+   //Nageoire max
    static const double     v;
+
+   //carapace
+      //résistance max
+   static const double     w;
+      //réduction vitesse
+   static const double     eta;
+
+   //camouflage
+      //minimum
+   static const double     camoMin;
+      //max
+   static const double     camoMax;
 
 private:
    int                     width, height;
@@ -38,6 +52,10 @@ public :
 
    //geter accesoires
    double getVmax();
+   double getResmax();
+   double getRedV();
+   double getCamoMin();
+   double getCamoMax();
 
 };
 

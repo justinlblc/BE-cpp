@@ -12,40 +12,61 @@ const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
-
-Bestiole::Bestiole( Milieu & milieu )
-{
-   //Accesories
-
-   //Nageoires
-   int ent = (int) floor(milieu.getVmax());
-   double virg = milieu.getVmax() - (double) ent;
+double Randomise(double rand){
+   int ent = (int) floor(rand);
+   double virg = rand- (double) ent;
    int multient= (int) std::rand()%(ent-1)+1;
    double multivirg = (double) std::rand()/RAND_MAX;
-   double multiV = (double) multient + multivirg;
+   double multi = (double) multient + multivirg;
    if (virg==0){
-      multiV = (double) multient + multivirg;
+      multi = (double) multient + multivirg;
    }
    else {
       while (multivirg>virg){
          multivirg = (double) std::rand()/RAND_MAX;
       }
-      multiV = (double) multient + multivirg;
+      multi = (double) multient + multivirg;
+   }
+   return multi;
+}
+
+Bestiole::Bestiole( Milieu & milieu )
+{
+   //Accesoires
+
+   //Nageoires
+   double multiV=Randomise(milieu.getVmax());
+
+   //Carapace
+      //resistance
+   double multiW=Randomise(milieu.getResmax());
+      //reduction de la vitesse
+   double multiRedV=Randomise(milieu.getRedV());
+
+   //Camouflage
+   double camo = std::rand()/RAND_MAX;
+   while (camo<milieu.getCamoMin() || camo>milieu.getCamoMax()){
+      camo =std::rand()/RAND_MAX;
    }
    
-   identite = ++next;
-   collision = 0.2;
+
+   collision = 0.2/multiW;
    clonage=0.003;
 
+   identite = ++next;
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
    AGE_LIM = (int) std::rand()%(1000-300)+300;
    age = 0;
+
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   vitesse = multiV*static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
-   cout<<vitesse<<endl;
+   vitesse = (multiV*static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE)/multiRedV;
+
+   if (vitesse>MAX_VITESSE){
+      vitesse = MAX_VITESSE;
+   }
 
    couleur = new T[ 3 ];
    couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
@@ -57,18 +78,21 @@ Bestiole::Bestiole( Milieu & milieu )
 
 Bestiole::Bestiole( const Bestiole & b )
 {
+   collision=b.collision;
+   clonage=b.clonage;
 
    identite = ++next;
 
    cout << "const Bestiole (" << identite << ") par copie" << endl;
+
    age=b.age;
    AGE_LIM=b.AGE_LIM;
+
    x = b.x;
    y = b.y;
    cumulX = cumulY = 0.;
    orientation = b.orientation;
    vitesse = b.vitesse;
-   collision=b.collision;
    clonage=b.clonage;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
@@ -186,14 +210,18 @@ double Bestiole::getCollision(){
 Bestiole& Bestiole::operator=(const Bestiole& b){   
    if (this != &b){
 
+      collision= b.collision;
+      clonage=b.clonage;
+
       x=b.x;
       y=b.y;
+
       age=b.age;
       AGE_LIM=b.AGE_LIM;
+
       cumulX = cumulY = 0.;
       orientation=b.orientation;
       vitesse=b.vitesse;
-      collision= b.collision;
       clonage=b.clonage;
       
       delete[] couleur;
