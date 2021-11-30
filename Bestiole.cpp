@@ -17,10 +17,13 @@ Bestiole::Bestiole(  )
 {
 
    identite = ++next;
-   this->collision = 0.5;
+   collision = 0.2;
+   clonage=0.003;
 
    cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
+   AGE_LIM = (int) std::rand()%(1000-300)+300;
+   age = 0;
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
@@ -40,12 +43,15 @@ Bestiole::Bestiole( const Bestiole & b )
    identite = ++next;
 
    cout << "const Bestiole (" << identite << ") par copie" << endl;
+   age=b.age;
+   AGE_LIM=b.AGE_LIM;
    x = b.x;
    y = b.y;
    cumulX = cumulY = 0.;
    orientation = b.orientation;
    vitesse = b.vitesse;
    collision=b.collision;
+   clonage=b.clonage;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
@@ -110,7 +116,7 @@ void Bestiole::action( Milieu & monMilieu )
 {
 
    bouge( monMilieu.getWidth(), monMilieu.getHeight());
-
+   age++;
 }
 
 
@@ -159,25 +165,38 @@ void Bestiole::setOrientation(){
 double Bestiole::getCollision(){
    return this->collision;
 }
-Bestiole& Bestiole::operator=(Bestiole&& b){   
+Bestiole& Bestiole::operator=(const Bestiole& b){   
    if (this != &b){
 
-      std::swap(x, b.x);
-      std::swap(y, b.y);
+      x=b.x;
+      y=b.y;
+      age=b.age;
+      AGE_LIM=b.AGE_LIM;
       cumulX = cumulY = 0.;
-      std::swap(orientation, b.orientation);
-      std::swap(vitesse, b.vitesse);
-      std::swap(collision, b.collision);
-
+      orientation=b.orientation;
+      vitesse=b.vitesse;
+      collision= b.collision;
+      clonage=b.clonage;
+      
       delete[] couleur;
 
       couleur = new T[ 3 ];
-      std::swap(couleur[0], b.couleur[0]);
-      std::swap(couleur[1], b.couleur[1]);
-      std::swap(couleur[2], b.couleur[2]);
+      couleur[0]=b.couleur[0];
+      couleur[1]= b.couleur[1];
+      couleur[2]= b.couleur[2];
    }
    return *this;
+}
 
+int Bestiole::getAge(){
+   return age;
+}
 
+int Bestiole::getAgeLim(){
+   return AGE_LIM;
+}
+
+double Bestiole::getClonage(){
+   return clonage;
 }
 

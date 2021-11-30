@@ -23,12 +23,16 @@ private :
    static int              next;
 
 private :
+   int         AGE_LIM;
+
    int               identite;
    int               x, y;
+   int               age;
    double            cumulX, cumulY;
    double            orientation;
    double            vitesse;
    double            collision;
+   double            clonage;
    T               * couleur;
 
 private :
@@ -51,7 +55,11 @@ public :                                           // Forme canonique :
    int getY();
    void setOrientation();
    double getCollision();
-   Bestiole& operator=(Bestiole&& bestiole);
+   int getAge();
+   int getAgeLim();
+   double getClonage();
+
+   Bestiole& operator=(const Bestiole& bestiole);
 };
 
 

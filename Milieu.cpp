@@ -31,10 +31,17 @@ void Milieu::step( void ){
    for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
       it->action( *this );
-      it->draw( *this );  
+      it->draw( *this );
    }
    std::vector<int> collisions;
    int k = listeBestioles.size();
+   for (int i = 0; i<k; i++){
+      if (listeBestioles[i].getAge()==listeBestioles[i].getAgeLim()){
+         listeBestioles.erase(listeBestioles.begin() +i);
+         cout<<"mort spontanée"<<endl;
+         break;
+      }
+   }
    for (int i = 0; i<k; i++){
       for (int j = i; j<k; j++){
          double dist = std::sqrt((listeBestioles[i].getX()-listeBestioles[j].getX())*(listeBestioles[i].getX()-listeBestioles[j].getX())+(listeBestioles[i].getY()-listeBestioles[j].getY())*(listeBestioles[i].getY()-listeBestioles[j].getY()));
@@ -51,11 +58,8 @@ void Milieu::step( void ){
    int m = collisions.size();
    for(int i = 0; i<m;i++){
       double test = (double) std::rand() / (RAND_MAX);
-      if (test<=0.5){
-         cout<< "before delete: " << listeBestioles.size()<<endl;
-         cout << "supprimer la bestiole n° "<< collisions[i]<<endl;
+      if (test<=listeBestioles[collisions[i]].getCollision()){
          listeBestioles.erase(listeBestioles.begin() + collisions[i]);
-         cout<< "after delete: " << listeBestioles.size()<<endl;
          if (i!=m-1){
             for (int j=i+1;j<m;j++){
                collisions[j]=collisions[j]-1;
@@ -64,6 +68,15 @@ void Milieu::step( void ){
       }
       else{
          listeBestioles[collisions[i]].setOrientation();
+      }
+   }
+   for (int i = 0; i<k; i++){
+      double test = (double) std::rand()/RAND_MAX;
+      if (test<=listeBestioles[i].getClonage()){
+         cout<<"test: "<< test<<"clonage: "<<listeBestioles[i].getClonage();
+         this->addMember(listeBestioles[i]);
+         cout<<"Clonage"<<endl;
+         break;
       }
    }
 }
