@@ -13,9 +13,26 @@ const double      Bestiole::LIMITE_VUE = 30.;
 int               Bestiole::next = 0;
 
 
-Bestiole::Bestiole(  )
+Bestiole::Bestiole( Milieu & milieu )
 {
+   //Accesories
 
+   //Nageoires
+   int ent = (int) floor(milieu.getVmax());
+   double virg = milieu.getVmax() - (double) ent;
+   int multient= (int) std::rand()%(ent-1)+1;
+   double multivirg = (double) std::rand()/RAND_MAX;
+   double multiV = (double) multient + multivirg;
+   if (virg==0){
+      multiV = (double) multient + multivirg;
+   }
+   else {
+      while (multivirg>virg){
+         multivirg = (double) std::rand()/RAND_MAX;
+      }
+      multiV = (double) multient + multivirg;
+   }
+   
    identite = ++next;
    collision = 0.2;
    clonage=0.003;
@@ -27,7 +44,8 @@ Bestiole::Bestiole(  )
    x = y = 0;
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
-   vitesse = static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+   vitesse = multiV*static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE;
+   cout<<vitesse<<endl;
 
    couleur = new T[ 3 ];
    couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
