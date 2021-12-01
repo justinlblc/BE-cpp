@@ -3,6 +3,7 @@
 #include "Bestiole.h"
 #include "Gregaire.h"
 #include "Peureuse.h"
+#include "Kamikaze.h"
 #include "Comportement.h"
 #include <iostream>
 
@@ -20,8 +21,10 @@ int main()
    Peureuse peur;
    Peureuse * peureuse = &peur;
 
-   for ( int i = 1; i <= 10; ++i )
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), peureuse));
+   Kamikaze kami;
+   Kamikaze * kamikaze = &kami;
+   for ( int i = 1; i <= 2; ++i )
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kamikaze));
    ecosysteme.run();
 
 
