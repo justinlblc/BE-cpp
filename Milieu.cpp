@@ -44,6 +44,11 @@ void Milieu::step( void ){
    
    for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
    {
+      it->comportement(*this);
+   }
+
+   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   {
       it->action( *this );
       it->draw( *this );
    }

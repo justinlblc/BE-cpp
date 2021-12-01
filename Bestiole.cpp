@@ -162,11 +162,12 @@ void Bestiole::bouge( int xLim, int yLim )
 
 void Bestiole::action( Milieu & monMilieu )
 {  
-   cout<<"avant: "<<orientation<<endl;
-   comp->comp(*this, monMilieu);
-   cout<<"après: "<<orientation<<endl;
    bouge( monMilieu.getWidth(), monMilieu.getHeight());
    age++;
+}
+
+void Bestiole::comportement(Milieu & monMilieu){
+   comp->comp(*this, monMilieu);
 }
 
 void Bestiole::draw( UImg & support )
@@ -256,4 +257,8 @@ double Bestiole::getClonage(){
 
 double Bestiole::getOrientation(){
    return orientation;
+}
+
+Comportement *Bestiole::getComp(){
+   return comp;
 }
