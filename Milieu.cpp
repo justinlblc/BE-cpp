@@ -58,7 +58,7 @@ void Milieu::step( void ){
    for (int i = 0; i<k; i++){
       for (int j = i; j<k; j++){
          double dist = std::sqrt((listeBestioles[i].getX()-listeBestioles[j].getX())*(listeBestioles[i].getX()-listeBestioles[j].getX())+(listeBestioles[i].getY()-listeBestioles[j].getY())*(listeBestioles[i].getY()-listeBestioles[j].getY()));
-         if (dist<4 && j!=i){
+         if (dist<8 && j!=i){
             collisions.push_back(j);
             collisions.push_back(i);
          }

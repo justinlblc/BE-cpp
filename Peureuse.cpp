@@ -24,9 +24,7 @@ void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
 
     }
     else if (nbVoisin<tolerance && b.getFuis()){
-        cout <<"Vitesse max normalement: "<<b.getVitesse()<<endl;
         b.setFuis(false);
         b.setVitesse(this->vitesse);
-        cout<<"Retour vitesse initiale: "<<b.getVitesse()<<endl;
     }
 }
