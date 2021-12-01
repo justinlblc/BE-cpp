@@ -55,11 +55,14 @@ public :                                                 // Forme canonique :
    int getX();
    int getY();
    void setOrientation(double orientation);
+   void setVitesse(double vitesse);
    double getCollision();
    int getAge();
    int getAgeLim();
    double getClonage();
    double getOrientation();
+   double getVitesse();
+   double getVMAX(){return MAX_VITESSE};
    Comportement *getComp();
 
    Bestiole& operator=(const Bestiole& bestiole);

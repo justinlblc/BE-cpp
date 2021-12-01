@@ -256,6 +256,14 @@ double Bestiole::getOrientation(){
    return orientation;
 }
 
+double Bestiole::getVitesse(){
+   return vitesse;
+}
+
+void Bestiole::setVitesse(double vitesse){
+   vitesse=vitesse;
+}
+
 Comportement *Bestiole::getComp(){
    return comp;
 }
