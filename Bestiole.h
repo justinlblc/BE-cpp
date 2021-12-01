@@ -67,7 +67,7 @@ public :                                                 // Forme canonique :
    double getVMAX(){return MAX_VITESSE;};
    Comportement *getComp();
    bool getFuis(){return fuis;};
-   void setFuis(bool fuis){fuis=fuis;};
+   void setFuis(bool fuis){this->fuis=fuis;};
 
    Bestiole& operator=(const Bestiole& bestiole);
 };

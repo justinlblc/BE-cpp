@@ -16,13 +16,16 @@ Peureuse::Peureuse(void){
 
 void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
     int nbVoisin = monMilieu.nbVoisins(b);
-    if (nbVoisin>=tolerance && b.getFuis()==false){
+    if (nbVoisin>=tolerance && !(b.getFuis())){
+        vitesse=b.getVitesse();
         b.setOrientation(M_PI-b.getOrientation());
         b.setVitesse(b.getVMAX());
         b.setFuis(true);
+
     }
-    else if(b.getFuis()==true){
-        cout<<"Vitesse max: "<<b.getVitesse()<<endl;
+    else if (nbVoisin<tolerance && b.getFuis()){
+        cout <<"Vitesse max normalement: "<<b.getVitesse()<<endl;
+        b.setFuis(false);
         b.setVitesse(this->vitesse);
         cout<<"Retour vitesse initiale: "<<b.getVitesse()<<endl;
     }

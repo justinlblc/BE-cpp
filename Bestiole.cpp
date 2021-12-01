@@ -32,7 +32,7 @@ double Randomise(double rand){
 }
 
 Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
-
+   cout<<fuis<<endl;
    this->comp=comp;
    //Accesoires
 
@@ -251,21 +251,21 @@ int Bestiole::getAgeLim(){
 }
 
 double Bestiole::getClonage(){
-   return clonage;
+   return this->clonage;
 }
 
 double Bestiole::getOrientation(){
-   return orientation;
+   return this->orientation;
 }
 
 double Bestiole::getVitesse(){
-   return vitesse;
+   return this->vitesse;
 }
 
 void Bestiole::setVitesse(double vitesse){
-   vitesse=vitesse;
+   this->vitesse=vitesse;
 }
 
 Comportement *Bestiole::getComp(){
-   return comp;
+   return this->comp;
 }
