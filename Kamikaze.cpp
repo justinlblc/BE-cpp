@@ -15,34 +15,38 @@ Kamikaze::Kamikaze(void){
 void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
     std::vector<Bestiole> *liste = monMilieu.getListeBestioles();
     int k = liste->size();
-    double distFinale = monMilieu.getWidth();
-    Bestiole *cible;
-    for (int i =0; i<k;i++){
-        double dist = std::sqrt(b.getX()-(*liste)[i].getX())*(b.getX()-(*liste)[i].getX())+(b.getY()-(*liste)[i].getY())*(b.getY()-(*liste)[i].getY()));
-        if (dist<distFinale && dist!=0){
-            distFinale=dist;
-            (*cible)=(*liste)[i];
+    if (k>1){
+        int l = 0
+        double distFinale = monMilieu.getWidth();
+        for (int i =0; i<k;i++){
+            double dist = std::sqrt(b.getX()-(*liste)[i].getX())*(b.getX()-(*liste)[i].getX())+(b.getY()-(*liste)[i].getY())*(b.getY()-(*liste)[i].getY()));
+            if (dist<distFinale && dist!=0){
+                distFinale=dist;
+                l =i;
+            }
         }
-    }
-    //calcul de la nouvelle orientation
-    //disjonction de cas
-    double orientation;
-    if (cible->getX()>=b.getX()){
-        if (cible->getY()>=b.getY()){
-            double orientation = std::acos((cible->getX()-b.getX())/distFinale);
-        }
-        else {
-            double orientation = -std::acos((cible->getX()-b.getX())/distFinale);
-        }
-    }
-    else {
-        if (cible->getY()>=b.getY()){
-            double orientation = M_PI-std::acos((b.getX()-cible->getX()/distFinale));
+        //calcul de la nouvelle orientation
+        //disjonction de cas
+        Bestiole *cible = &(*liste[l]);
+        double orientation;
+        if (cible->getX()>=b.getX()){
+            if (cible->getY()>=b.getY()){
+                orientation = std::acos((cible->getX()-b.getX())/distFinale);
+            }
+            else {
+                orientation = -std::acos((cible->getX()-b.getX())/distFinale);
+            }
         }
         else {
-            double orientation = -M_PI+std::acos((b.getX()-cible->getX()/distFinale));
+            if (cible->getY()>=b.getY()){
+                orientation = M_PI-std::acos((b.getX()-cible->getX()/distFinale));
+            }
+            else {
+                orientation = -M_PI+std::acos((b.getX()-cible->getX()/distFinale));
+            }
         }
+        //On modifie l'orientation en conséquence
+        b.setOrientation(orientation);
     }
-    //On modifie l'orientation en conséquence
-    b.setOrientation(orientation);
 }
+

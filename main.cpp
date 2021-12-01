@@ -23,6 +23,7 @@ int main()
 
    Kamikaze kami;
    Kamikaze * kamikaze = &kami;
+   
    for ( int i = 1; i <= 2; ++i )
       ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kamikaze));
    ecosysteme.run();
