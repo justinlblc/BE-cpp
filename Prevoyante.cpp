@@ -17,6 +17,7 @@ Prevoyante::Prevoyante(void){
 };
 
 void Prevoyante::comp(Bestiole& b, Milieu & monMilieu){
+    
 }
 
 T *Prevoyante::getCouleur(){
