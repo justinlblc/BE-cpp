@@ -59,7 +59,7 @@ void Milieu::step( void ){
    for (int i = 0; i<k; i++){
       for (int j = i; j<k; j++){
          double dist = std::sqrt((listeBestioles[i].getX()-listeBestioles[j].getX())*(listeBestioles[i].getX()-listeBestioles[j].getX())+(listeBestioles[i].getY()-listeBestioles[j].getY())*(listeBestioles[i].getY()-listeBestioles[j].getY()));
-         if (dist<8 && j!=i){
+         if (dist<4 && j!=i){
             collisions.push_back(j);
             collisions.push_back(i);
          }
@@ -81,7 +81,7 @@ void Milieu::step( void ){
          }
       }
       else{
-         listeBestioles[collisions[i]].setOrientation();
+         listeBestioles[collisions[i]].setOrientation(M_PI - listeBestioles[collisions[i]].getOrientation());
       }
    }
    for (int i = 0; i<k; i++){
@@ -124,4 +124,9 @@ double Milieu::getCamoMin(){
 
 double Milieu::getCamoMax(){
    return camoMax;
+}
+
+std::vector<Bestiole> Milieu::getListeBestioles(){
+   std::vector<Bestiole> * ptr_listeBestioles= &listeBestioles; 
+   return ptr_listeBestioles;
 }

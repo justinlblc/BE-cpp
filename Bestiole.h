@@ -10,7 +10,7 @@ using namespace std;
 
 
 class Milieu;
-
+class Comportement;
 
 class Bestiole
 {
@@ -25,6 +25,7 @@ private :
 private :
    int               AGE_LIM;
 
+   Comportement    * comp;
    int               identite;
    int               x, y;
    int               age;
@@ -38,11 +39,11 @@ private :
 private :
    void bouge( int xLim, int yLim );
 
-public :                                           // Forme canonique :
-   Bestiole(Milieu & milieu);                               // Constructeur par defaut
-   Bestiole( const Bestiole & b );                 // Constructeur de copies
-   ~Bestiole( void );                              // Destructeur
-                                                   // Operateur d'affectation binaire par defaut
+public :                                                 // Forme canonique :
+   Bestiole(Milieu & milieu, Comportement * comp);  // Constructeur par defaut
+   Bestiole( const Bestiole & b );                       // Constructeur de copies
+   ~Bestiole( void );                                    // Destructeur
+                                                         // Operateur d'affectation binaire par defaut
    void action( Milieu & monMilieu );
    void draw( UImg & support );
 
@@ -53,11 +54,12 @@ public :                                           // Forme canonique :
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
    int getX();
    int getY();
-   void setOrientation();
+   void setOrientation(double orientation);
    double getCollision();
    int getAge();
    int getAgeLim();
    double getClonage();
+   double getOrientation();
 
    Bestiole& operator=(const Bestiole& bestiole);
 };

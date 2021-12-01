@@ -1,5 +1,6 @@
 #include "Bestiole.h"
-
+#include "Comportement.h"
+#include "Gregaire.h"
 #include "Milieu.h"
 
 #include <cstdlib>
@@ -30,8 +31,9 @@ double Randomise(double rand){
    return multi;
 }
 
-Bestiole::Bestiole( Milieu & milieu )
-{
+Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
+
+   this->comp=comp;
    //Accesoires
 
    //Nageoires
@@ -73,11 +75,14 @@ Bestiole::Bestiole( Milieu & milieu )
    couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
    couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
 
+   //comportement
+
 }
 
 
-Bestiole::Bestiole( const Bestiole & b )
-{
+Bestiole::Bestiole( const Bestiole & b){  
+
+   comp=b.comp;
    collision=b.collision;
    clonage=b.clonage;
 
@@ -97,6 +102,7 @@ Bestiole::Bestiole( const Bestiole & b )
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
+   this->comp=b.comp;
 }
 
 
@@ -155,12 +161,13 @@ void Bestiole::bouge( int xLim, int yLim )
 
 
 void Bestiole::action( Milieu & monMilieu )
-{
-
+{  
+   cout<<"avant: "<<orientation<<endl;
+   comp->comp(*this, monMilieu);
+   cout<<"après: "<<orientation<<endl;
    bouge( monMilieu.getWidth(), monMilieu.getHeight());
    age++;
 }
-
 
 void Bestiole::draw( UImg & support )
 {
@@ -200,8 +207,8 @@ int Bestiole::getX(){
 int Bestiole::getY(){
    return this->y;
 }
-void Bestiole::setOrientation(){
-   this->orientation=M_PI - orientation;
+void Bestiole::setOrientation(double orientation){
+   this->orientation=orientation;
 }
 
 double Bestiole::getCollision(){
@@ -230,6 +237,7 @@ Bestiole& Bestiole::operator=(const Bestiole& b){
       couleur[0]=b.couleur[0];
       couleur[1]= b.couleur[1];
       couleur[2]= b.couleur[2];
+      comp=b.comp;
    }
    return *this;
 }
@@ -246,3 +254,6 @@ double Bestiole::getClonage(){
    return clonage;
 }
 
+double Bestiole::getOrientation(){
+   return orientation;
+}
