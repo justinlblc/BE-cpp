@@ -16,7 +16,7 @@ int main()
    Gregaire greg;
    Gregaire * gregaire = &greg;
 
-   for ( int i = 1; i <= 20; ++i )
+   for ( int i = 1; i <= 5; ++i )
       ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), gregaire));
    ecosysteme.run();
 

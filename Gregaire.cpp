@@ -23,7 +23,6 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
                 orientation+=(*liste)[i].getOrientation();
             }
         }
+        b.setOrientation(orientation/nbVoisin);
     }
-    //b.setOrientation(orientation/nbVoisin);
-
 }
