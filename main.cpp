@@ -21,7 +21,7 @@ int main()
    Peureuse * peureuse = &peur;
 
    for ( int i = 1; i <= 10; ++i )
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), gregaire));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), peureuse));
    ecosysteme.run();
 
 

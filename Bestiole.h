@@ -36,6 +36,8 @@ private :
    double            clonage;
    T               * couleur;
 
+   bool              fuis=false;
+
 private :
    void bouge( int xLim, int yLim );
 
@@ -64,6 +66,8 @@ public :                                                 // Forme canonique :
    double getVitesse();
    double getVMAX(){return MAX_VITESSE;};
    Comportement *getComp();
+   bool getFuis(){return fuis;};
+   void setFuis(bool fuis){fuis=fuis;};
 
    Bestiole& operator=(const Bestiole& bestiole);
 };

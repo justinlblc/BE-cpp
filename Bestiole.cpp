@@ -83,6 +83,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
 Bestiole::Bestiole( const Bestiole & b){  
 
    comp=b.comp;
+   fuis=b.fuis;
    collision=b.collision;
    clonage=b.clonage;
 
@@ -236,6 +237,7 @@ Bestiole& Bestiole::operator=(const Bestiole& b){
       couleur[1]= b.couleur[1];
       couleur[2]= b.couleur[2];
       comp=b.comp;
+      fuis=b.fuis;
    }
    return *this;
 }
