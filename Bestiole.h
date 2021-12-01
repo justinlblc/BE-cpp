@@ -51,8 +51,6 @@ public :                                                 // Forme canonique :
 
    void initCoords( int xLim, int yLim );
 
-   void comportement(Milieu & monMilieu);
-
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
    int getX();
    int getY();

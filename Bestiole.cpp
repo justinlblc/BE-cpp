@@ -162,12 +162,9 @@ void Bestiole::bouge( int xLim, int yLim )
 
 void Bestiole::action( Milieu & monMilieu )
 {  
+   comp->comp(*this, monMilieu);
    bouge( monMilieu.getWidth(), monMilieu.getHeight());
    age++;
-}
-
-void Bestiole::comportement(Milieu & monMilieu){
-   comp->comp(*this, monMilieu);
 }
 
 void Bestiole::draw( UImg & support )
