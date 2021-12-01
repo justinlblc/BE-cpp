@@ -11,9 +11,11 @@ class Bestiole;
 class Milieu;
 
 class Comportement {
-
+    protected:
+        T * couleur;
     public:
         virtual void comp(Bestiole& b, Milieu & monMilieu)=0;
+        virtual T * getCouleur()=0;
 };
 
 

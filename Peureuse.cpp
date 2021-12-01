@@ -11,6 +11,10 @@ using namespace std;
 const int Peureuse::tolerance=2;
 
 Peureuse::Peureuse(void){
+    couleur = new T[3];
+    couleur[0]=82;
+    couleur[1]=176;
+    couleur[2]=173;
     return;
 };
 
@@ -27,4 +31,8 @@ void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
         b.setFuis(false);
         b.setVitesse(this->vitesse);
     }
+}
+
+T *Peureuse::getCouleur(){
+    return this->couleur;
 }

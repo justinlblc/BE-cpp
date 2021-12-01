@@ -9,6 +9,10 @@ using namespace std;
 
 
 Gregaire::Gregaire(void){
+    couleur = new T[3];
+    couleur[0]=248;
+    couleur[1]=22;
+    couleur[2]=15;
     return;
 };
 
@@ -25,4 +29,8 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
         }
         b.setOrientation(orientation/nbVoisin);
     }
+}
+
+T *Gregaire::getCouleur(){
+    return this->couleur;
 }

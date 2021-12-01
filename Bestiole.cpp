@@ -32,7 +32,6 @@ double Randomise(double rand){
 }
 
 Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
-   cout<<fuis<<endl;
    this->comp=comp;
    //Accesoires
 
@@ -71,11 +70,11 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    }
 
    couleur = new T[ 3 ];
-   couleur[ 0 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 1 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
-   couleur[ 2 ] = static_cast<int>( static_cast<double>( rand() )/RAND_MAX*230. );
+   T *coul= comp->getCouleur();
+   couleur[ 0 ] = coul[0];
+   couleur[ 1 ] = coul[1];
+   couleur[ 2 ] = coul[2];
 
-   //comportement
 
 }
 

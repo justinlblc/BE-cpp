@@ -24,8 +24,11 @@ int main()
    Kamikaze kami;
    Kamikaze * kamikaze = &kami;
    
-   for ( int i = 1; i <= 2; ++i )
+   for ( int i = 1; i <= 10; ++i ){
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), gregaire));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), peureuse));
       ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kamikaze));
+   }
    ecosysteme.run();
 
 
