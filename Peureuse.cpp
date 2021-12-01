@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int Peureuse::tolerance=4;
+const int Peureuse::tolerance=2;
 
 Peureuse::Peureuse(void){
     return;
@@ -19,5 +19,10 @@ void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
     if (nbVoisin>=tolerance){
         b.setOrientation(M_PI-b.getOrientation());
         b.setVitesse(b.getVMAX());
+    }
+    else if(true){
+        cout<<"Vitesse max: "<<b.getVitesse()<<endl;
+        b.setVitesse(this->vitesse);
+        cout<<"Retour vitesse initiale: "<<b.getVitesse()<<endl;
     }
 }

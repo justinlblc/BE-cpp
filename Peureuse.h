@@ -15,6 +15,8 @@ class Peureuse : virtual public Comportement {
 private:
     static const int tolerance;
 
+private:
+    double vitesse=0;
 public:
     Peureuse(void);
     void comp(Bestiole& b, Milieu & monMilieu);

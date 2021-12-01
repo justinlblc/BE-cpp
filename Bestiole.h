@@ -62,7 +62,7 @@ public :                                                 // Forme canonique :
    double getClonage();
    double getOrientation();
    double getVitesse();
-   double getVMAX(){return MAX_VITESSE};
+   double getVMAX(){return MAX_VITESSE;};
    Comportement *getComp();
 
    Bestiole& operator=(const Bestiole& bestiole);

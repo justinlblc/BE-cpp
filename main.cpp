@@ -2,6 +2,7 @@
 #include "Milieu.h"
 #include "Bestiole.h"
 #include "Gregaire.h"
+#include "Peureuse.h"
 #include "Comportement.h"
 #include <iostream>
 
@@ -16,7 +17,10 @@ int main()
    Gregaire greg;
    Gregaire * gregaire = &greg;
 
-   for ( int i = 1; i <= 5; ++i )
+   Peureuse peur;
+   Peureuse * peureuse = &peur;
+
+   for ( int i = 1; i <= 10; ++i )
       ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), gregaire));
    ecosysteme.run();
 
