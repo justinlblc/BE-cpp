@@ -53,7 +53,7 @@ public :
    double getRedV();
    double getCamoMin();
    double getCamoMax();
-   std::vector<Bestiole> getListeBestioles();
+   std::vector<Bestiole> *getListeBestioles();
 
 };
 

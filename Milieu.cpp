@@ -126,7 +126,7 @@ double Milieu::getCamoMax(){
    return camoMax;
 }
 
-std::vector<Bestiole> Milieu::getListeBestioles(){
+std::vector<Bestiole> *Milieu::getListeBestioles(){
    std::vector<Bestiole> * ptr_listeBestioles= &listeBestioles; 
    return ptr_listeBestioles;
 }
