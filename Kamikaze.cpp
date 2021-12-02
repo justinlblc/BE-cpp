@@ -19,21 +19,20 @@ Kamikaze::Kamikaze(void){
 void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
     std::vector<Bestiole> *liste = monMilieu.getListeBestioles();
     int k = liste->size();
-    if (k>1){
-        int l = 0;
-        double distFinale = (double) monMilieu.getWidth();
-        for (int i =0; i<k;i++){
-            double dist = std::sqrt((b.getX()-(*liste)[i].getX())*(b.getX()-(*liste)[i].getX())+(b.getY()-(*liste)[i].getY())*(b.getY()-(*liste)[i].getY()));
-            if (dist<distFinale && dist!=0){
-                distFinale=dist;
-                l =i;
+    double distCourte = monMilieu.getWidth();
+    int index;
+    for (int i=0; i<k;i++){
+        if (b.jeTeVois((*liste)[i]) && !((*liste)[i]==b)){
+            double dist = std::sqrt((b.getX()-(*liste)[i].getX())*(b.getX()-(*liste)[i].getX())+((b.getY()-(*liste)[i].getY()))*((b.getY()-(*liste)[i].getY())));
+            if (dist < distCourte){
+                distCourte = dist;
+                index=i;
             }
         }
-        //calcul de la nouvelle orientation
-        //disjonction de cas
-        Bestiole *cible = &(*liste)[l];
-        double orientation = std::acos((cible->getX()-b.getX())/distFinale);
-        if (cible->getY()<b.getY()){
+    }
+    if (distCourte!=monMilieu.getWidth()){
+        double orientation = std::acos(((*liste)[index].getX()-b.getX())/distCourte);
+        if ((*liste)[index].getY()>b.getY()){
             orientation = -orientation;
         }
         b.setOrientation(orientation);
