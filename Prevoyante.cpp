@@ -17,8 +17,28 @@ Prevoyante::Prevoyante(void){
 };
 
 void Prevoyante::comp(Bestiole& b, Milieu & monMilieu){
+    std::vector<Bestiole> *liste = monMilieu.getListeBestioles();
+    int k = liste->size();
+    double distCourte = monMilieu.getWidth();
+    int index;
+    for (int i=0; i<k;i++){
+        if (b.jeTeVois((*liste)[i]) && !((*liste)[i]==b)){
+            double dist = std::sqrt((b.getX()-(*liste)[i].getX())*(b.getX()-(*liste)[i].getX())+((b.getY()-(*liste)[i].getY()))*((b.getY()-(*liste)[i].getY())));
+            if (dist < distCourte){
+                distCourte = dist;
+                index=i;
+            }
+        }
+    }
+    if (distCourte!=monMilieu.getWidth()){
+        double orientation = std::acos(((*liste)[index].getX()-b.getX())/distCourte);
+        if ((*liste)[index].getY()<b.getY()){
+            orientation = -orientation;
+        }
+        b.setOrientation(orientation);
+    }
     
-}
+    }
 
 T *Prevoyante::getCouleur(){
     return this->couleur;
