@@ -13,7 +13,7 @@ const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
-double Randomise(double rand){
+double Randomise1(double rand){
    int ent = (int) floor(rand);
    double virg = rand- (double) ent;
    int multient= (int) std::rand()%(ent-1)+1;
@@ -30,6 +30,7 @@ double Randomise(double rand){
    }
    return multi;
 }
+
 
 Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    this->comp=comp;
@@ -50,6 +51,10 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
       camo =std::rand()/RAND_MAX;
    }
    
+   //Capteur
+      //Yeux
+         //distance
+   this->distYeux = Randomise(milieu.getDetecYeuxMax)
 
    collision = 0.2/multiW;
    clonage=0.003;
@@ -81,7 +86,6 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
 
 Bestiole::Bestiole( const Bestiole & b){  
 
-   comp=b.comp;
    fuis=b.fuis;
    collision=b.collision;
    clonage=b.clonage;

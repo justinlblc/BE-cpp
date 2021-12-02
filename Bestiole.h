@@ -15,14 +15,14 @@ class Comportement;
 class Bestiole
 {
 
-private :
+protected :
    static const double     AFF_SIZE;
    static const double     MAX_VITESSE;
    static const double     LIMITE_VUE;
 
    static int              next;
 
-private :
+protected :
    int               AGE_LIM;
 
    Comportement    * comp;
@@ -37,8 +37,14 @@ private :
    T               * couleur;
 
    bool              fuis=false;
+   
+   //yeux
+      //Limite ditance
+   double            distYeux;
+      //Limite angle
+   double            angleYeux;            
 
-private :
+protected :
    void bouge( int xLim, int yLim );
 
 public :                                                 // Forme canonique :
@@ -46,7 +52,7 @@ public :                                                 // Forme canonique :
    Bestiole( const Bestiole & b );                       // Constructeur de copies
    ~Bestiole( void );                                    // Destructeur
                                                          // Operateur d'affectation binaire par defaut
-   void action( Milieu & monMilieu );
+   virtual void action( Milieu & monMilieu );
    void draw( UImg & support );
 
    bool jeTeVois( const Bestiole & b ) const;

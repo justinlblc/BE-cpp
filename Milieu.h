@@ -30,6 +30,16 @@ private :
       //max
    static const double     camoMax;
 
+   //Yeux
+   static const double     alphaMin;
+   static const double     alphaMax;
+
+   static const double     distYeuxMin;
+   static const double     distYeuxMax;
+
+   static const double     detecYeuxMin;
+   static const double     detecYeuxMax;
+
 
 private:
    int                     width, height;
@@ -53,6 +63,15 @@ public :
    double getRedV();
    double getCamoMin();
    double getCamoMax();
+
+   //geter capteurs
+   double getAlphaMin();
+   double getAlphaMax();
+   double getDistYeuxMax();
+   double getDisYeuxMin();
+   double getDetecYeuxMin();
+   double getDetecYeuxMax();
+   
    std::vector<Bestiole> *getListeBestioles();
 
 };

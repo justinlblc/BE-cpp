@@ -1,5 +1,5 @@
-main : main.o Aquarium.o Milieu.o Bestiole.o Comportement.o Gregaire.o Peureuse.o Kamikaze.o Prevoyante.o
-	g++ -Wall -std=c++11 -o main main.o Aquarium.o Bestiole.o Milieu.o Comportement.o Gregaire.o Peureuse.o Kamikaze.o Prevoyante.o -I . -lX11 -lpthread
+main : main.o Aquarium.o Milieu.o Bestiole.o Comportement.o Gregaire.o Peureuse.o Kamikaze.o Prevoyante.o MultiBestiole.o
+	g++ -Wall -std=c++11 -o main main.o Aquarium.o Bestiole.o Milieu.o Comportement.o Gregaire.o Peureuse.o Kamikaze.o Prevoyante.o MultiBestiole.o -I . -lX11 -lpthread
 
 Aquarium.o : Aquarium.h Aquarium.cpp
 	g++ -Wall -std=c++11  -c Aquarium.cpp -I .
@@ -23,7 +23,10 @@ Kamikaze.o: Kamikaze.h Kamikaze.cpp Comportement.h
 	g++ -Wall -std=c++11  -c Kamikaze.cpp -I .	
 
 Prevoyante.o: Prevoyante.h Prevoyante.cpp Comportement.h
-	g++ -Wall -std=c++11  -c Prevoyante.cpp -I .	
+	g++ -Wall -std=c++11  -c Prevoyante.cpp -I .
+
+MultiBestiole.o: MultiBestiole.h MultiBestiole.cpp
+	g++ -Wall -std=c++11  -c MultiBestiole.cpp -I .
 
 main.o: main.cpp Comportement.h Gregaire.h Peureuse.h Kamikaze.h
 	g++ -Wall -std=c++11  -c main.cpp -I .

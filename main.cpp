@@ -6,6 +6,7 @@
 #include "Kamikaze.h"
 #include "Prevoyante.h"
 #include "Comportement.h"
+#include "MultiBestiole.h"
 #include <iostream>
 
 using namespace std;
@@ -32,7 +33,7 @@ int main()
    for ( int i = 1; i <= 10; ++i ){
       ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), gregaire));
    }
-   ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(),kamikaze));
+   ecosysteme.getMilieu().addMember( MultiBestiole(ecosysteme.getMilieu(), gregaire, kamikaze, peureuse, prevoyante));
    ecosysteme.run();
 
 

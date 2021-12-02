@@ -22,6 +22,19 @@ const double    Milieu::camoMin=0;
    //Maximum (plus petit que 1)
 const double    Milieu::camoMax=1;
 
+//yeux
+const double    Milieu::alphaMin = 0;
+const double    Milieu::alphaMax = M_PI;
+
+//Distance min doit être cohérente avec la limite de distance pour la collision
+const double    Milieu::distYeuxMin = 4;
+const double    Milieu::distYeuxMax = 30;
+
+const double    Milieu::detecYeuxMin = 0;
+const double    Milieu::detecYeuxMax = 1;
+
+
+
 Milieu::Milieu( int _width, int _height) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
@@ -41,10 +54,12 @@ Milieu::~Milieu( void )
 
 void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   for ( std::vector<Bestiole>::iterator it = listeBestioles.begin() ; it != listeBestioles.end() ; ++it )
+   int t = listeBestioles.size();
+   for ( int i = 0; i<t;i++)
    {
-      it->action( *this );
-      it->draw( *this );
+      Bestiole *b = &listeBestioles[i];
+      b->action( *this );
+      b->draw( *this );
    }
    std::vector<int> collisions;
    int k = listeBestioles.size();
@@ -123,6 +138,25 @@ double Milieu::getCamoMin(){
 
 double Milieu::getCamoMax(){
    return camoMax;
+}
+
+double Milieu::getAlphaMin(){
+   return alphaMin;
+}
+double  Milieu::getAlphaMax(){
+   return alphaMax;
+}
+double  Milieu::getDistYeuxMax(){
+   return distYeuxMax;
+}
+double  Milieu::getDisYeuxMin(){
+   return distYeuxMin;
+}
+double  Milieu::getDetecYeuxMin(){
+   return detecYeuxMin;
+}
+double  Milieu::getDetecYeuxMax(){
+   return detecYeuxMax;
 }
 
 std::vector<Bestiole> *Milieu::getListeBestioles(){
