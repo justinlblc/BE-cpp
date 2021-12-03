@@ -18,17 +18,33 @@ Peureuse::Peureuse(void){
     return;
 };
 
-void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
-    int nbVoisin = monMilieu.nbVoisins(b);
-    if (nbVoisin>=tolerance && !(b.getFuis())){
-        vitesse=b.getVitesse();
-        b.setOrientation(M_PI-b.getOrientation());
-        b.setVitesse(b.getVMAX());
-        b.setFuis(true);
+/*fonction du comportement de la bestiole peureuse
+---
+entrée: 
+- bestiole qui possède le comportement
+- son milieu
 
+--- 
+sortie : None
+*/
+
+void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
+    //nb voisin de la bestiole
+    int nbVoisin = monMilieu.nbVoisins(b);
+
+    //comparaison nbVoisin et tolérance
+    if (nbVoisin>=tolerance ){
+        //la bestiole n'était pas en fuite
+        if (!(b.getFuis())){
+            vitesse=b.getVitesse();
+            b.setVitesse(b.getVMAX());
+            b.setFuis(true); //La bestiole est en train de fuire    
+        }
+        b.setOrientation(-b.getOrientation()); //demi tour
     }
+    //sortie de la fuite
     else if (nbVoisin<tolerance && b.getFuis()){
-        b.setFuis(false);
+        b.setFuis(false); //La bestiole ne fuit pas
         b.setVitesse(this->vitesse);
     }
 }

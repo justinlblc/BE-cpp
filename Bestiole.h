@@ -37,16 +37,7 @@ protected :
    T               * couleur;
 
    bool              fuis=false;
-
-   //camouflage
-   //double            camo;
-   
-   //yeux
-      //Limite ditance
-   //double            distYeux;
-      //Limite angle
-   //double            angleYeux;      
-
+            
 protected :
    void bouge( int xLim, int yLim );
 

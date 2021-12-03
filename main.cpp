@@ -30,8 +30,8 @@ int main()
    Prevoyante * prevoyante = &prev;
 
    
-   for ( int i = 1; i <= 10; ++i ){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), peureuse));
+for ( int i = 1; i <= 5; ++i ){
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kamikaze));
    }
    ecosysteme.run();
 
