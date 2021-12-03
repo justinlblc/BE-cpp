@@ -13,16 +13,6 @@ const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
-double Rand(double Min, double Max){
-   int min = ceil(Min*100);
-   int max = floor(Max*100);
-   int rand = std::rand()%(max-min) -min;
-   rand = (double) (rand/100);
-   return rand;
-}
-
-
-
 double Randomise(double rand){
    int ent = (int) floor(rand);
    double virg = rand- (double) ent;
@@ -56,14 +46,14 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    double multiRedV=Randomise(milieu.getRedV());
 
    //Camouflage
-   //this->camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
+   double camo = std::rand()/RAND_MAX;
+   while (camo<milieu.getCamoMin() || camo>milieu.getCamoMax()){
+      camo =std::rand()/RAND_MAX;
+   }
    
    //Capteur
       //Yeux
          //distance
-   //this->distYeux = Rand(milieu.getDetecYeuxMin(), milieu.getDetecYeuxMax());
-         //angle
-   //this->angleYeux = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
 
    collision = 0.2/multiW;
    clonage=0.003;
@@ -191,7 +181,7 @@ void Bestiole::draw( UImg & support )
    support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
    T *coul = new T[3];
    coul[0]=coul[1]=coul[2]=0;
-   support.draw_circle(x,y,AFF_SIZE/2., coul, 10000000);
+   support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
 
 }
 
