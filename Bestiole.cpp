@@ -13,7 +13,7 @@ const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
-double Randomise1(double rand){
+double Randomise(double rand){
    int ent = (int) floor(rand);
    double virg = rand- (double) ent;
    int multient= (int) std::rand()%(ent-1)+1;
@@ -54,7 +54,6 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    //Capteur
       //Yeux
          //distance
-   this->distYeux = Randomise(milieu.getDetecYeuxMax)
 
    collision = 0.2/multiW;
    clonage=0.003;
