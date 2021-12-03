@@ -121,42 +121,42 @@ int Milieu::nbVoisins( const Bestiole & b ){
 }
 
 double Milieu::getVmax(){
-   return v;
+   return this->v;
 }
 
 double Milieu::getResmax(){
-   return w;
+   return this->w;
 }
 
 double Milieu::getRedV(){
-   return eta;
+   return this->eta;
 }
 
 double Milieu::getCamoMin(){
-   return camoMin;
+   return this->camoMin;
 }
 
 double Milieu::getCamoMax(){
-   return camoMax;
+   return this->camoMax;
 }
 
 double Milieu::getAlphaMin(){
-   return alphaMin;
+   return this->alphaMin;
 }
 double  Milieu::getAlphaMax(){
-   return alphaMax;
+   return this->alphaMax;
 }
 double  Milieu::getDistYeuxMax(){
-   return distYeuxMax;
+   return this->distYeuxMax;
 }
 double  Milieu::getDisYeuxMin(){
-   return distYeuxMin;
+   return this->distYeuxMin;
 }
 double  Milieu::getDetecYeuxMin(){
-   return detecYeuxMin;
+   return this->detecYeuxMin;
 }
 double  Milieu::getDetecYeuxMax(){
-   return detecYeuxMax;
+   return this->detecYeuxMax;
 }
 
 std::vector<Bestiole> *Milieu::getListeBestioles(){
