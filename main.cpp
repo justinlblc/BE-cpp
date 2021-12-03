@@ -31,9 +31,8 @@ int main()
 
    
    for ( int i = 1; i <= 5; ++i ){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), gregaire));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kamikaze));
    }
-   ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), peureuse));
    ecosysteme.run();
 
 
