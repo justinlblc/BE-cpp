@@ -40,6 +40,13 @@ private :
    static const double     detecYeuxMin;
    static const double     detecYeuxMax;
 
+   //Oreille
+   static const double     distOreiMin;
+   static const double     distOreiMax;
+
+   static const double     detecOreiMin;
+   static const double     detecOreiMax;
+
 
 private:
    int                     width, height;
@@ -68,9 +75,13 @@ public :
    double getAlphaMin();
    double getAlphaMax();
    double getDistYeuxMax();
-   double getDisYeuxMin();
+   double getDistYeuxMin();
    double getDetecYeuxMin();
    double getDetecYeuxMax();
+   double getDetecOreiMax();
+   double getDetecOreiMin();
+   double getDistOreiMin();
+   double getDistOreiMax();
    
    std::vector<Bestiole> *getListeBestioles();
 

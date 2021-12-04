@@ -37,7 +37,18 @@ protected :
    T               * couleur;
 
    bool              fuis=false;
-            
+   
+   double            camo;
+
+   //capteur
+      //yeux
+   double            angle;
+   double            yeuxDist;
+   double            yeuxDetec;
+      //oreilles
+   double            oreiDetec;
+   double            oreiDist;
+
 protected :
    void bouge( int xLim, int yLim );
 

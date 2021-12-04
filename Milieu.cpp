@@ -28,10 +28,18 @@ const double    Milieu::alphaMax = M_PI;
 
 //Distance min doit être cohérente avec la limite de distance pour la collision
 const double    Milieu::distYeuxMin = 4;
-const double    Milieu::distYeuxMax = 30;
+const double    Milieu::distYeuxMax = 50;
 
 const double    Milieu::detecYeuxMin = 0;
 const double    Milieu::detecYeuxMax = 1;
+
+//oreilles
+
+const double     Milieu::distOreiMin = 4;
+const double     Milieu::distOreiMax = 30;
+
+const double     Milieu::detecOreiMin = 0;
+const double     Milieu::detecOreilMax = 1;
 
 
 
@@ -149,7 +157,7 @@ double  Milieu::getAlphaMax(){
 double  Milieu::getDistYeuxMax(){
    return this->distYeuxMax;
 }
-double  Milieu::getDisYeuxMin(){
+double  Milieu::getDistYeuxMin(){
    return this->distYeuxMin;
 }
 double  Milieu::getDetecYeuxMin(){
@@ -158,6 +166,23 @@ double  Milieu::getDetecYeuxMin(){
 double  Milieu::getDetecYeuxMax(){
    return this->detecYeuxMax;
 }
+
+double Milieu::getDetecOreiMax(){
+   return this->detecOreiMin;
+}
+
+double Milieu::getDetecOreiMin(){
+   return this->detecOreiMax;
+}
+
+double Milieu::getDistOreiMin(){
+   return this->distOreiMin;
+}
+
+double Milieu::getDistOreiMax(){
+   return this->distOreiMax;
+}
+   
 
 std::vector<Bestiole> *Milieu::getListeBestioles(){
    std::vector<Bestiole> * ptr_listeBestioles= &listeBestioles; 

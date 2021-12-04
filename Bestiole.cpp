@@ -13,47 +13,41 @@ const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
-double Randomise(double rand){
-   int ent = (int) floor(rand);
-   double virg = rand- (double) ent;
-   int multient= (int) std::rand()%(ent-1)+1;
-   double multivirg = (double) std::rand()/RAND_MAX;
-   double multi = (double) multient + multivirg;
-   if (virg==0){
-      multi = (double) multient + multivirg;
-   }
-   else {
-      while (multivirg>virg){
-         multivirg = (double) std::rand()/RAND_MAX;
-      }
-      multi = (double) multient + multivirg;
-   }
-   return multi;
+double Rand(double min, double max){
+   int m = ceil(min*100);
+   int M = floor (max * 100);
+   double rand = (double) (std::rand()%(M-m)-m);
+   return rand/100;
 }
 
 
 Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    this->comp=comp;
    //Accesoires
-
    //Nageoires
-   double multiV=Randomise(milieu.getVmax());
+   double multiV=Rand(1, milieu.getVmax());
 
    //Carapace
       //resistance
-   double multiW=Randomise(milieu.getResmax());
+   double multiW=Rand(1, milieu.getResmax());
       //reduction de la vitesse
-   double multiRedV=Randomise(milieu.getRedV());
+   double multiRedV=Rand(1, milieu.getRedV());
 
    //Camouflage
-   double camo = std::rand()/RAND_MAX;
-   while (camo<milieu.getCamoMin() || camo>milieu.getCamoMax()){
-      camo =std::rand()/RAND_MAX;
-   }
+   this->camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
    
    //Capteur
       //Yeux
+         //angle
+   this->angle = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
          //distance
+   this->yeuxDist = Rand(milieu.getDistYeuxMin(), milieu.getDistYeuxMax());
+         //Capacité de detection
+   this->yeuxDetec = Rand(milieu.getDetecYeuxMin(), milieu.getDetecYeuxMax());
+
+      //Oreilles
+   this->oreiDetec = Rand(milieu.getDetecOreiMin(), milieu.getDetecOreiMax());
+   this->oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
 
    collision = 0.2/multiW;
    clonage=0.003;
@@ -179,9 +173,9 @@ void Bestiole::draw( UImg & support )
 
    support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
-   T *coul = new T[3];
-   coul[0]=coul[1]=coul[2]=0;
-   support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
+   //T *coul = new T[3];
+   //coul[0]=coul[1]=coul[2]=0;
+   //support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
 
 }
 

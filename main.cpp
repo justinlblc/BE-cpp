@@ -11,27 +11,22 @@
 
 using namespace std;
 
-
 int main()
 {
 
    Aquarium       ecosysteme( 640, 480, 30 );
    
    Gregaire greg;
-   Gregaire * gregaire = &greg;
 
    Peureuse peur;
-   Peureuse * peureuse = &peur;
 
    Kamikaze kami;
-   Kamikaze * kamikaze = &kami;
 
    Prevoyante prev;
-   Prevoyante * prevoyante = &prev;
 
-   
+
 for ( int i = 1; i <= 5; ++i ){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kamikaze));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &peur));
    }
    ecosysteme.run();
 
