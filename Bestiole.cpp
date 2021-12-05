@@ -182,9 +182,9 @@ void Bestiole::draw( UImg & support )
 
    support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
-   T *coul = new T[3];
-   coul[0]=coul[1]=coul[2]=0;
-   support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
+   //T *coul = new T[3];
+   //coul[0]=coul[1]=coul[2]=0;
+   //support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
 
 }
 
@@ -199,6 +199,11 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 )
 
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
+   //capacité de detection
+   if (oreiDetec<b.oreiDetec || yeuxDetec<b.camo){
+      return false;
+   }
+
    double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
    //Oreilles
    if (dist<oreiDist){
