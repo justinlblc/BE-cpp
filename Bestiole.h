@@ -21,6 +21,7 @@ protected :
    static const double     LIMITE_VUE;
 
    static int              next;
+   static T              * couleurCarap;
 
 protected :
    int               AGE_LIM;

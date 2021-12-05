@@ -13,6 +13,8 @@ const double      Bestiole::LIMITE_VUE = 30.;
 
 int               Bestiole::next = 0;
 
+T                *Bestiole::couleurCarap = new T[3];
+
 double Rand(double min, double max){
    int m = ceil(min*100);
    int M = floor (max * 100);
@@ -68,11 +70,15 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    }
 
    couleur = new T[ 3 ];
-   T *coul= comp->getCouleur();
-   couleur[ 0 ] = coul[0];
-   couleur[ 1 ] = coul[1];
-   couleur[ 2 ] = coul[2];
-   }
+   T *couleurComp= comp->getCouleur();
+   couleur[ 0 ] = couleurComp[0];
+   couleur[ 1 ] = couleurComp[1];
+   couleur[ 2 ] = couleurComp[2];
+
+   couleurCarap[0] = 0;
+   couleurCarap[1] = 0;
+   couleurCarap[2] = 0;
+}
 
 
 Bestiole::Bestiole( const Bestiole & b){  
@@ -182,9 +188,7 @@ void Bestiole::draw( UImg & support )
 
    support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
-   //T *coul = new T[3];
-   //coul[0]=coul[1]=coul[2]=0;
-   //support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
+   support.draw_circle(x,y,AFF_SIZE/4., couleurCarap, 10000000);
 
 }
 
