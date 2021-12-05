@@ -27,8 +27,8 @@ const double    Milieu::alphaMin = 0;
 const double    Milieu::alphaMax = M_PI;
 
 //Distance min doit être cohérente avec la limite de distance pour la collision
-const double    Milieu::distYeuxMin = 4;
-const double    Milieu::distYeuxMax = 50;
+const double    Milieu::distYeuxMin = 30;
+const double    Milieu::distYeuxMax = 40;
 
 const double    Milieu::detecYeuxMin = 0;
 const double    Milieu::detecYeuxMax = 1;
@@ -39,7 +39,7 @@ const double     Milieu::distOreiMin = 4;
 const double     Milieu::distOreiMax = 30;
 
 const double     Milieu::detecOreiMin = 0;
-const double     Milieu::detecOreilMax = 1;
+const double     Milieu::detecOreiMax = 1;
 
 
 

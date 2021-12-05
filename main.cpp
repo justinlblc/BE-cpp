@@ -25,8 +25,8 @@ int main()
    Prevoyante prev;
 
 
-for ( int i = 1; i <= 5; ++i ){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &peur));
+for ( int i = 1; i <= 10; ++i ){
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &greg));
    }
    ecosysteme.run();
 

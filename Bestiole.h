@@ -81,6 +81,8 @@ public :                                                 // Forme canonique :
    void setFuis(bool fuis){this->fuis=fuis;};
 
    Bestiole& operator=(const Bestiole& bestiole);
+
+   double getDist();
 };
 
 

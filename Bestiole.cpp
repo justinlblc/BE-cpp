@@ -16,7 +16,7 @@ int               Bestiole::next = 0;
 double Rand(double min, double max){
    int m = ceil(min*100);
    int M = floor (max * 100);
-   double rand = (double) (std::rand()%(M-m)-m);
+   double rand = (double) (std::rand()%(M-m)+m);
    return rand/100;
 }
 
@@ -34,20 +34,20 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    double multiRedV=Rand(1, milieu.getRedV());
 
    //Camouflage
-   this->camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
+   camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
    
    //Capteur
       //Yeux
          //angle
-   this->angle = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
+   angle = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
          //distance
-   this->yeuxDist = Rand(milieu.getDistYeuxMin(), milieu.getDistYeuxMax());
+   yeuxDist = Rand(milieu.getDistYeuxMin(), milieu.getDistYeuxMax());
          //Capacité de detection
-   this->yeuxDetec = Rand(milieu.getDetecYeuxMin(), milieu.getDetecYeuxMax());
+   yeuxDetec = Rand(milieu.getDetecYeuxMin(), milieu.getDetecYeuxMax());
 
       //Oreilles
-   this->oreiDetec = Rand(milieu.getDetecOreiMin(), milieu.getDetecOreiMax());
-   this->oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
+   oreiDetec = Rand(milieu.getDetecOreiMin(), milieu.getDetecOreiMax());
+   oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
 
    collision = 0.2/multiW;
    clonage=0.003;
@@ -72,9 +72,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    couleur[ 0 ] = coul[0];
    couleur[ 1 ] = coul[1];
    couleur[ 2 ] = coul[2];
-
-
-}
+   }
 
 
 Bestiole::Bestiole( const Bestiole & b){  
@@ -82,6 +80,18 @@ Bestiole::Bestiole( const Bestiole & b){
    fuis=b.fuis;
    collision=b.collision;
    clonage=b.clonage;
+   camo=b.camo;
+   //capteurs
+   //yeux
+   angle=b.angle;
+   yeuxDist = b.yeuxDist;
+   yeuxDetec = b.yeuxDetec;
+
+   //Oreilles
+   oreiDetec = b.oreiDetec;
+   oreiDist = b.oreiDist;
+
+
 
    identite = ++next;
 
@@ -95,7 +105,6 @@ Bestiole::Bestiole( const Bestiole & b){
    cumulX = cumulY = 0.;
    orientation = b.orientation;
    vitesse = b.vitesse;
-   clonage=b.clonage;
    couleur = new T[ 3 ];
    memcpy( couleur, b.couleur, 3*sizeof(T) );
 
@@ -173,9 +182,9 @@ void Bestiole::draw( UImg & support )
 
    support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
-   //T *coul = new T[3];
-   //coul[0]=coul[1]=coul[2]=0;
-   //support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
+   T *coul = new T[3];
+   coul[0]=coul[1]=coul[2]=0;
+   support.draw_circle(x,y,AFF_SIZE/4., coul, 10000000);
 
 }
 
@@ -190,15 +199,47 @@ bool operator==( const Bestiole & b1, const Bestiole & b2 )
 
 bool Bestiole::jeTeVois( const Bestiole & b ) const
 {
+   double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
+   //Oreilles
+   if (dist<oreiDist){
+      return true;
+   }
+   
+   //Yeux
+   if (dist>yeuxDist){
+      return false;
+   }
 
-   double         dist;
+   //Angle formé entre l'horizontale et l'axe reliant les deux bestioles
+   double ori = std::acos((b.x-x)/dist);
+   if (b.y<y){
+      ori = -ori;
+   }
+   //Oreille
+   double orientationMax = orientation + angle/2;
+   double orientationMin = orientation - angle/2;
 
-
-   dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
-   return ( dist <= LIMITE_VUE );
-
+   //Si le min est inférieur à M_PI:
+   if (orientationMin<-M_PI){
+      orientationMin += 2*M_PI;
+      if (ori>orientationMin || ori<orientationMax){
+         return true;
+      }
+   }
+   //Si le max est supérieur à M_PI:
+   else if (orientationMax>M_PI){
+      orientationMax -=2*M_PI;
+      if (ori>orientationMin || ori<orientationMax){
+         return true;
+      }
+   }
+   if (ori>orientationMin && ori<orientationMax){
+      return true;
+   }
+   return false;
 }
-
+   
+   
 int Bestiole::getX(){
    return this->x;
 }
@@ -220,6 +261,17 @@ Bestiole& Bestiole::operator=(const Bestiole& b){
 
       x=b.x;
       y=b.y;
+
+      camo=b.camo;
+      //capteurs
+      //yeux
+      angle=b.angle;
+      yeuxDist = b.yeuxDist;
+      yeuxDetec = b.yeuxDetec;
+
+      //Oreilles
+      oreiDetec = b.oreiDetec;
+      oreiDist = b.oreiDist;
 
       age=b.age;
       AGE_LIM=b.AGE_LIM;
