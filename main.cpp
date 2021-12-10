@@ -28,6 +28,7 @@ int main()
 for ( int i = 1; i <= 10; ++i ){
       ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &greg));
    }
+   ecosysteme.getMilieu().addMember( MultiBestiole(ecosysteme.getMilieu(), &greg, &kami, &peur, &prev));
    ecosysteme.run();
 
 

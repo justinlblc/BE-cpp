@@ -6,6 +6,7 @@
 #include "Bestiole.h"
 #include <iostream>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -50,7 +51,7 @@ private :
 
 private:
    int                     width, height;
-   std::vector<Bestiole>   listeBestioles;
+   std::vector<std::shared_ptr<Bestiole>>   listeBestioles;
 
 public :
    Milieu( int _width, int _height );
@@ -61,7 +62,7 @@ public :
 
    void step( void );
 
-   void addMember( const Bestiole & b) { listeBestioles.push_back(b); listeBestioles.back().initCoords(width, height);}
+   void addMember( const Bestiole & b) {std::shared_ptr<Bestiole> best = make_shared<Bestiole>(b); listeBestioles.push_back(best); listeBestioles.back()->initCoords(width, height);}
    int nbVoisins( const Bestiole & b );
 
    //geter accesoires
@@ -83,7 +84,7 @@ public :
    double getDistOreiMin();
    double getDistOreiMax();
    
-   std::vector<Bestiole> *getListeBestioles();
+   std::vector<std::shared_ptr<Bestiole>> *getListeBestioles();
 
 };
 

@@ -4,6 +4,7 @@
 #include "Milieu.h"
 #include <iostream>
 #include <vector>
+#include <memory>
 
 using namespace std;
 
@@ -21,10 +22,10 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
     int nbVoisin = monMilieu.nbVoisins(b);
     if (nbVoisin>=1){
         int k = monMilieu.getListeBestioles()->size();
-        std::vector<Bestiole> *liste = monMilieu.getListeBestioles();
+        std::vector<std::shared_ptr<Bestiole>> *liste = monMilieu.getListeBestioles();
         for (int i =0;i<k;i++ ){
-            if ( !(b == (*liste)[i]) && b.jeTeVois((*liste)[i])){
-                orientation+=(*liste)[i].getOrientation();
+            if ( !(b == *(*liste)[i]) && b.jeTeVois(*(*liste)[i])){
+                orientation+=(*liste)[i]->getOrientation();
             }
         }
         b.setOrientation(orientation/nbVoisin);
