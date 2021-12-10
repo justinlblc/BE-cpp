@@ -1,5 +1,5 @@
 #include "Milieu.h"
-
+#include "MultiBestiole.h"
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
@@ -74,10 +74,11 @@ void Milieu::step( void ){
    for (int i = 0; i<k; i++){
       if (listeBestioles[i]->getAge()==listeBestioles[i]->getAgeLim()){
          listeBestioles.erase(listeBestioles.begin() +i);
-         cout<<"mort spontanée"<<endl;
+         cout<<"Mort spontanée"<<endl;
          break;
       }
    }
+   k = listeBestioles.size();
    for (int i = 0; i<k; i++){
       for (int j = i; j<k; j++){
          double dist = std::sqrt((listeBestioles[i]->getX()-listeBestioles[j]->getX())*(listeBestioles[i]->getX()-listeBestioles[j]->getX())+(listeBestioles[i]->getY()-listeBestioles[j]->getY())*(listeBestioles[i]->getY()-listeBestioles[j]->getY()));
@@ -96,6 +97,8 @@ void Milieu::step( void ){
       double test = (double) std::rand() / (RAND_MAX);
       if (test<=listeBestioles[collisions[i]]->getCollision()){
          listeBestioles.erase(listeBestioles.begin() + collisions[i]);
+         cout<<"Mort par collision"<<endl;
+         cout<<(i!=m-1)<<endl;
          if (i!=m-1){
             for (int j=i+1;j<m;j++){
                collisions[j]=collisions[j]-1;
@@ -106,12 +109,13 @@ void Milieu::step( void ){
          listeBestioles[collisions[i]]->setOrientation(M_PI - listeBestioles[collisions[i]]->getOrientation());
       }
    }
+   k = listeBestioles.size();
    for (int i = 0; i<k; i++){
       double test = (double) std::rand()/RAND_MAX;
       if (test<=listeBestioles[i]->getClonage()){
+         cout<<"On va cloner une bestiole..."<<endl;
          this->addMember(*listeBestioles[i]);
          cout<<"Clonage"<<endl;
-         break;
       }
    }
 }
@@ -189,4 +193,17 @@ double Milieu::getDistOreiMax(){
 std::vector<std::shared_ptr<Bestiole>> *Milieu::getListeBestioles(){
    std::vector<std::shared_ptr<Bestiole>> * ptr_listeBestioles= &listeBestioles; 
    return ptr_listeBestioles;
+}
+
+void Milieu::addMember(const Bestiole & b){
+   if (b.isMulti()){
+      std::shared_ptr<MultiBestiole> best = make_shared<MultiBestiole>(dynamic_cast<MultiBestiole&>(const_cast<Bestiole&>(b))); 
+      listeBestioles.push_back(best); 
+      listeBestioles.back()->initCoords(width, height);
+   }
+   else {
+      std::shared_ptr<Bestiole> best = make_shared<Bestiole>(b); 
+      listeBestioles.push_back(best); 
+      listeBestioles.back()->initCoords(width, height);
+   }
 }

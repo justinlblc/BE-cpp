@@ -62,7 +62,7 @@ public :
 
    void step( void );
 
-   void addMember( const Bestiole & b) {std::shared_ptr<Bestiole> best = make_shared<Bestiole>(b); listeBestioles.push_back(best); listeBestioles.back()->initCoords(width, height);}
+   void addMember( const Bestiole & b);
    int nbVoisins( const Bestiole & b );
 
    //geter accesoires

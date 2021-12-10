@@ -56,7 +56,7 @@ protected :
 public :                                                 // Forme canonique :
    Bestiole(Milieu & milieu, Comportement * comp);  // Constructeur par defaut
    Bestiole( const Bestiole & b );                       // Constructeur de copies
-   ~Bestiole( void );                                    // Destructeur
+   virtual ~Bestiole( void );                                    // Destructeur
                                                          // Operateur d'affectation binaire par defaut
    virtual void action( Milieu & monMilieu );
    void draw( UImg & support );
@@ -81,9 +81,11 @@ public :                                                 // Forme canonique :
    bool getFuis(){return fuis;};
    void setFuis(bool fuis){this->fuis=fuis;};
 
-   Bestiole& operator=(const Bestiole& bestiole);
+   virtual Bestiole& operator=(const Bestiole& bestiole);
 
    double getDist();
+
+   virtual bool isMulti() const;
 };
 
 

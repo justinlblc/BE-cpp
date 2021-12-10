@@ -35,3 +35,4 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
 T *Gregaire::getCouleur(){
     return this->couleur;
 }
+//destructeur

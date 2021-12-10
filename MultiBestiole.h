@@ -25,8 +25,9 @@ private:
 public:
     // méthodes override
     MultiBestiole(Milieu &milieu, Gregaire *greg, Kamikaze *kami, Peureuse *peur, Prevoyante *prev);
-    MultiBestiole(const MultiBestiole &b, Gregaire *greg, Kamikaze *kami, Peureuse *peur, Prevoyante *prev);
+    MultiBestiole(const MultiBestiole &b);
     void action(Milieu & monMilieu);
+    bool isMulti() const;
     MultiBestiole &operator=(const MultiBestiole &b);
     // Nouvelles méthodes
     void setRandComp();

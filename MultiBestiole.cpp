@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 MultiBestiole::MultiBestiole(Milieu & milieu, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev):Bestiole(milieu, greg){
     //Propre à la classe MultiBestiole
     this->greg=greg;
@@ -21,15 +20,14 @@ MultiBestiole::MultiBestiole(Milieu & milieu, Gregaire * greg, Kamikaze * kami, 
     this->setCouleur(this->comp->getCouleur());
 }
 
-MultiBestiole::MultiBestiole( const MultiBestiole & b, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev):Bestiole(b){
-    this->greg=greg;
-    this->kami=kami;
-    this->peur=peur;
-    this->prev=prev;
+MultiBestiole::MultiBestiole( const MultiBestiole & b):Bestiole(b){
+    this->greg=b.greg;
+    this->kami=b.kami;
+    this->peur=b.peur;
+    this->prev=b.prev;
 }
 
 void MultiBestiole::action(Milieu & monMilieu){
-    cout<<age<<endl;
     if (this->age%100==0){
         this->setRandComp();
         this->setCouleur(this->comp->getCouleur());
@@ -57,4 +55,8 @@ void MultiBestiole::setCouleur(T * coul){
     couleur[0]=coul[0];
     couleur[1]=coul[1];
     couleur[2]=coul[2];
+}
+
+bool MultiBestiole::isMulti() const{
+    return true;
 }

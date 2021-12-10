@@ -55,7 +55,6 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    clonage=0.003;
 
    identite = ++next;
-   cout << "const Bestiole (" << identite << ") par defaut" << endl;
 
    AGE_LIM = (int) std::rand()%(1000-300)+300;
    age = 0;
@@ -101,7 +100,6 @@ Bestiole::Bestiole( const Bestiole & b){
 
    identite = ++next;
 
-   cout << "const Bestiole (" << identite << ") par copie" << endl;
 
    age=b.age;
    AGE_LIM=b.AGE_LIM;
@@ -328,4 +326,8 @@ void Bestiole::setVitesse(double vitesse){
 
 Comportement *Bestiole::getComp(){
    return this->comp;
+}
+
+bool Bestiole::isMulti() const{
+   return false;
 }
