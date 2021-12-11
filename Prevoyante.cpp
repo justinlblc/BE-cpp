@@ -39,7 +39,6 @@ void Prevoyante::comp(Bestiole& b, Milieu & monMilieu){
             b.setOrientation(orientation);
         }
     }
-    cout<<"Prévoyante"<<endl;
 }
 
 T *Prevoyante::getCouleur(){

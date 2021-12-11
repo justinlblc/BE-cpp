@@ -77,9 +77,42 @@ Milieu::~Milieu( void )
    cout << "dest Milieu" << endl;
 
 }
+void Milieu::naissanceSpont(){
+   double nait = static_cast<double>( std::rand() )/RAND_MAX;
+   if (nait<this->naissance){
+      //cout<<nait<<endl;
+      int i = std::rand()% 5 +1;
+      if (i==1 && b1==true){
+         this->addMember(Bestiole(*this, &greg));
+         cout<<"Naissance spontanée Grégaire."<<endl;
+      }
+      else if (i==2 && b2==true){
+         this->addMember(Bestiole(*this, &kami));
+         cout<<"Naissance spontanée Kamikaze."<<endl;
+      }
+      else if (i==3 && b3==true){
+         this->addMember(Bestiole(*this, &peur));
+         cout<<"Naissance spontanée Peureuse."<<endl;
+      }
+      else if (i==4 && b4==true){
+         this->addMember(Bestiole(*this, &prev));
+         cout<<"Naissance spontanée Prévoyante."<<endl;
+      }
+      else if (i==5){
+         this->addMember(MultiBestiole(*this, &greg, &kami, &peur, &prev));
+         cout<<"Naissance spontanée Multibestiole"<<endl;        
+      }
+      else {
+         naissanceSpont();
+      }
+   }
+}
 
 void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
+   //Naissance spontanée
+   naissanceSpont();
+
    int t = listeBestioles.size();
    for ( int i = 0; i<t;i++)
    {

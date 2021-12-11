@@ -31,7 +31,6 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
             b.setOrientation(orientation/nbVoisin);
         }
     }
-    cout<<"Gregaire"<<endl;
 }
 
 T *Gregaire::getCouleur(){

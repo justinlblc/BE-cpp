@@ -77,6 +77,7 @@ public :
    int getWidth( void ) const { return width; };
    int getHeight( void ) const { return height; };
 
+   void naissanceSpont();
    void step( void );
 
    void addMember( const Bestiole & b);
