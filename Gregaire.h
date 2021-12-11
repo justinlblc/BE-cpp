@@ -1,9 +1,9 @@
 #ifndef _GREGAIRE_H_
 #define _GREGAIRE_H_
 
-#include <math.h>
 #include "Comportement.h"
-#include "Milieu.h"
+#include <math.h>
+#include "UImg.h"
 
 using namespace std;
 

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <CImg.h>
 
-#include "Milieu.h"
 #include "Gregaire.h"
 #include "Kamikaze.h"
 #include "Peureuse.h"
@@ -14,7 +13,7 @@ using namespace std;
 using namespace cimg_library;
 
 
-
+class Milieu;
 
 class Aquarium : public CImgDisplay
 {

@@ -3,7 +3,6 @@
 
 #include <math.h>
 #include "Comportement.h"
-#include "Milieu.h"
 #include "Gregaire.h"
 #include "Kamikaze.h"
 #include "Peureuse.h"
@@ -13,7 +12,6 @@ using namespace std;
 
 class Bestiole;
 class Milieu;
-
 class MultiBestiole : public Bestiole
 {
 private:

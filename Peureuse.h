@@ -3,7 +3,6 @@
 
 #include <math.h>
 #include "Comportement.h"
-#include "Milieu.h"
 
 using namespace std;
 

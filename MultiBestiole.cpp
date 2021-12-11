@@ -1,7 +1,5 @@
 #include "Bestiole.h"
 #include "MultiBestiole.h"
-#include "Comportement.h"
-#include "Gregaire.h"
 #include "Milieu.h"
 
 #include <cstdlib>

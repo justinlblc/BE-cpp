@@ -3,16 +3,13 @@
 
 
 #include "UImg.h"
-#include "Bestiole.h"
 #include <iostream>
 #include <vector>
 #include <memory>
 
 using namespace std;
-class Gregaire;
-class Kamikaze;
-class Peureuse;
-class Prevoyante;
+
+class Bestiole;
 
 class Milieu : public UImg
 {
@@ -36,7 +33,6 @@ private :
    static const double     camoMax;
 
    //naissance
-
    static const double     naissance;
 
    //Yeux
@@ -62,7 +58,7 @@ private:
    std::vector<std::shared_ptr<Bestiole>>   listeBestioles;
 
 public :
-   Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );
+   Milieu( int _width, int _height );
    ~Milieu( void );
 
    int getWidth( void ) const { return width; };

@@ -1,6 +1,5 @@
 #include "Kamikaze.h"
 #include "Bestiole.h"
-#include "Comportement.h"
 #include "Milieu.h"
 #include <iostream>
 #include <vector>
