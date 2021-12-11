@@ -7,8 +7,13 @@
 
 using namespace std;
 
-MultiBestiole::MultiBestiole(Milieu & milieu, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev):Bestiole(milieu, greg){
+MultiBestiole::MultiBestiole(Milieu & milieu, bool b1, bool b2, bool b3, bool b4,  Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev):Bestiole(milieu, greg){
     //Propre à la classe MultiBestiole
+    this->b1=b1;
+    this->b2=b2;
+    this->b3=b3;
+    this->b4=b4;
+
     this->greg=greg;
     this->kami=kami;
     this->peur=peur;
@@ -42,18 +47,21 @@ void MultiBestiole::action(Milieu & monMilieu){
 void MultiBestiole::setRandComp(){
     int i = rand()% 4 +1;
     //cout<<"Random comp: "<<i<<endl;
-    if (i==1){
+    if (i==1 && b1==true){
         this->comp=greg;
     }
-    else if (i==2){
+    else if (i==2 && b2==true){
         this->comp=kami;
     }
-    else if (i==3){
+    else if (i==3 && b3==true){
         this->comp=peur;
     }
-    else if (i==4){
+    else if (i==4 && b4==true){
         this->comp=prev;
-    }        
+    }
+    else{
+        setRandComp();
+    }       
 }
 
 void MultiBestiole::setCouleur(T * coul){

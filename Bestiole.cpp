@@ -121,7 +121,7 @@ Bestiole::~Bestiole( void )
 
    delete[] couleur;
 
-   cout << "dest Bestiole" << endl;
+   //cout << "dest Bestiole" << endl;
 
 }
 

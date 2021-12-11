@@ -30,7 +30,7 @@ const double    Milieu::camoMax=1;
 
 //naissance
 
-const double Milieu::naissance=0.001;
+const double Milieu::naissance=0.1;
 //yeux
 const double    Milieu::alphaMin = 0;
 const double    Milieu::alphaMax = M_PI;
@@ -99,7 +99,7 @@ void Milieu::naissanceSpont(){
          cout<<"Naissance spontanée Prévoyante."<<endl;
       }
       else if (i==5){
-         this->addMember(MultiBestiole(*this, &greg, &kami, &peur, &prev));
+         this->addMember(MultiBestiole(*this, b1, b2, b3, b4, &greg, &kami, &peur, &prev));
          cout<<"Naissance spontanée Multibestiole"<<endl;        
       }
       else {
@@ -148,7 +148,6 @@ void Milieu::step( void ){
       if (test<=listeBestioles[collisions[i]]->getCollision()){
          listeBestioles.erase(listeBestioles.begin() + collisions[i]);
          cout<<"Mort par collision"<<endl;
-         cout<<(i!=m-1)<<endl;
          if (i!=m-1){
             for (int j=i+1;j<m;j++){
                collisions[j]=collisions[j]-1;

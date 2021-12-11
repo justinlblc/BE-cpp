@@ -20,9 +20,14 @@ private:
     Peureuse *peur;
     Prevoyante *prev;
 
+    bool b1;
+    bool b2;
+    bool b3;
+    bool b4;
+
 public:
     // méthodes override
-    MultiBestiole(Milieu &milieu, Gregaire *greg, Kamikaze *kami, Peureuse *peur, Prevoyante *prev);
+    MultiBestiole(Milieu &milieu, bool b1, bool b2, bool b3, bool b4, Gregaire *greg, Kamikaze *kami, Peureuse *peur, Prevoyante *prev);
     MultiBestiole(const MultiBestiole &b);
     void action(Milieu & monMilieu);
     bool isMulti() const;

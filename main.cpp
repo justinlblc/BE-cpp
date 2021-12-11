@@ -11,7 +11,7 @@
 
 using namespace std;
 
-
+//fonction de lancement de simulation
 void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev){
    //Grégaire
    for (int i = 0;i<gn;i++){
@@ -40,12 +40,12 @@ int main()
    
    Gregaire greg;
 
-   Peureuse peur;
-
    Kamikaze kami;
 
-   Prevoyante prev;
+   Peureuse peur;
 
+   Prevoyante prev;
+   
    int n = 0;
    int g;
    cout<<"Pourcentage de Grégaire? ";
@@ -78,7 +78,7 @@ int main()
    int nb;
    cout << "Nombre de bestioles au total? ";
    cin >> nb;
-
+   cout<<"Nombre: "<<n<<endl;
   
    int gn = ceil(nb*g/100);
    int kn = ceil(nb*k/100);
@@ -89,11 +89,81 @@ int main()
    int longueur = 1280;
 
 
+   // cas où toutes les bestioles
+   if (n==4){
+      Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, true, greg, kami, peur, prev);
+      lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+   }
+   else if (n==3){
+      if (g!=0 && k!=0 && P!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, false, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (g!=0 && k!=00 && p!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, true, true, false, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if(g!=0 && P!=0 && p!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, true, false, true, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else {
+         Aquarium       ecosysteme( longueur, largeur, 30, false, true, true, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      
+   }
+   //Si deux types de bestioles
+   else if (n==2){
+      if (g!=0 && k!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, true, true, false, false, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (g!=0 && P!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, true, false, true, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (g!=0 && p!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, true, false, false, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (k!=0 && P!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, false, true, true, false, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (k!=0 && p!=0){
+         Aquarium       ecosysteme( longueur, largeur, 30, false, true, false, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else {
+         Aquarium       ecosysteme( longueur, largeur, 30, false, false, true, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
 
-   Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, true, greg, kami, peur, prev);
+   }
 
-   ecosysteme.getMilieu().addMember(MultiBestiole(ecosysteme.getMilieu(), &greg, &kami, &peur, &prev));
-   lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
-
+   //cas où un seul type de bestiole
+   else {
+      if (g!=0){
+         cout<<"Que Grégaire"<<endl;
+         Aquarium       ecosysteme( longueur, largeur, 30, true, false, false, false, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (k!=0){
+         cout<<"Que Kamikaze"<<endl;
+         Aquarium       ecosysteme( longueur, largeur, 30, false, true, false, false, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else if (P!=0){
+         cout<<"Que Peureuse"<<endl;
+         Aquarium       ecosysteme( longueur, largeur, 30, false, false, true, false, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
+      else{
+         cout<<"Que Prévoyante"<<endl;
+         Aquarium       ecosysteme(longueur, largeur, 30, false, false, false, true, greg, kami, peur, prev);
+         lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
+      }
    return 0;
+   }
 }
