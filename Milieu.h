@@ -1,7 +1,10 @@
 #ifndef _MILIEU_H_
 #define _MILIEU_H_
 
-
+#include "Gregaire.h"
+#include "Kamikaze.h"
+#include "Prevoyante.h"
+#include "Peureuse.h"
 #include "UImg.h"
 #include <iostream>
 #include <vector>
@@ -10,10 +13,6 @@
 using namespace std;
 
 class Bestiole;
-class Gregaire;
-class Kamikaze;
-class Peureuse;
-class Prevoyante;
 
 class Milieu : public UImg
 {
@@ -60,6 +59,16 @@ private :
 private:
    int                     width, height;
    std::vector<std::shared_ptr<Bestiole>>   listeBestioles;
+
+   bool b1;
+   bool b2;
+   bool b3;
+   bool b4;
+
+   Gregaire greg;
+   Kamikaze kami;
+   Peureuse peur;
+   Prevoyante prev;
 
 public :
    Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );

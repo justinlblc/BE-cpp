@@ -55,7 +55,16 @@ const double     Milieu::detecOreiMax = 1;
 Milieu::Milieu( int _width, int _height,  bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
+   this->b1=b1;
+   this->b2=b2;
+   this->b3=b3;
+   this->b4=b4;
 
+   this->greg=greg;
+   this->kami=kami;
+   this->peur=peur;
+   this->prev=prev;
+   
    cout << "const Milieu" << endl;
    std::srand( time(NULL) );
 
