@@ -83,6 +83,7 @@ public :
    void addMember( const Bestiole & b);
    int nbVoisins( const Bestiole & b );
 
+
    //geter accesoires
    double getVmax();
    double getResmax();

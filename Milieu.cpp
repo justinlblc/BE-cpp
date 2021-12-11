@@ -5,6 +5,8 @@
 #include "Kamikaze.h"
 #include "Peureuse.h"
 #include "Prevoyante.h"
+
+#include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
@@ -50,7 +52,15 @@ const double     Milieu::distOreiMax = 30;
 const double     Milieu::detecOreiMin = 0;
 const double     Milieu::detecOreiMax = 1;
 
-
+bool predicatMortSpontanee(std::shared_ptr<Bestiole> b){
+   //cout<<"Age de la bestiole: "<<b->getAge()<<endl;
+   //cout <<"Son âge limite: "<<b->getAgeLim()<<endl;
+   //cout << (b->getAge()>=b->getAgeLim())<<endl;
+   if (b->getAge()>=b->getAgeLim()){
+      cout<<"Mort spontanée"<<endl;
+   }
+   return (b->getAge()>=b->getAgeLim());
+}
 
 Milieu::Milieu( int _width, int _height,  bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
@@ -113,41 +123,64 @@ void Milieu::step( void ){
    //Naissance spontanée
    naissanceSpont();
 
+   //Mouvement des bestioles à chaque pas de la simulation
    int t = listeBestioles.size();
    for ( int i = 0; i<t;i++)
    {
       listeBestioles[i]->action( *this );
       listeBestioles[i]->draw( *this );
    }
-   std::vector<int> collisions;
+
+   //mort spontanée
+   //for (int i = 0; i<k; i++){
+      //if (listeBestioles[i]->getAge()==listeBestioles[i]->getAgeLim()){
+         //listeBestioles.erase(listeBestioles.begin() +i);
+         //cout<<"Mort spontanée"<<endl;
+         //break;
+      //}
+   //}
+   listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(),predicatMortSpontanee), listeBestioles.end());
+
    int k = listeBestioles.size();
+
+   //Clonage des bestioles
    for (int i = 0; i<k; i++){
-      if (listeBestioles[i]->getAge()==listeBestioles[i]->getAgeLim()){
-         listeBestioles.erase(listeBestioles.begin() +i);
-         cout<<"Mort spontanée"<<endl;
-         break;
+      double test = (double) std::rand()/RAND_MAX;
+      if (test<=listeBestioles[i]->getClonage()){
+         cout<<"On va cloner une bestiole..."<<endl;
+         this->addMember(*listeBestioles[i]);
+         cout<<"Clonage"<<endl;
       }
    }
+
    k = listeBestioles.size();
+   //Vecteur contenant les indices des bestioles qui rentrent en collisions à linstant t.
+   //L'indice est celui des bestioles dans listeBestioles
+   std::vector<int> collisions;
    for (int i = 0; i<k; i++){
       for (int j = i; j<k; j++){
          double dist = std::sqrt((listeBestioles[i]->getX()-listeBestioles[j]->getX())*(listeBestioles[i]->getX()-listeBestioles[j]->getX())+(listeBestioles[i]->getY()-listeBestioles[j]->getY())*(listeBestioles[i]->getY()-listeBestioles[j]->getY()));
+         //Si les deux bestioles se touchent, on rajoute leurs indices à la liste
          if (dist<8 && j!=i){
             collisions.push_back(j);
             collisions.push_back(i);
          }
       } 
    }
+
+   //On trie par ordre croissant et on supprime les doublons de la liste d'indices
    std::sort(collisions.begin(), collisions.end());
    auto last = std::unique(collisions.begin(),collisions.end());
    collisions.erase(last, collisions.end());
    
+   //Pour chaque bestiole en collision, si le nombre aléatoire est plus petit que sa probabilité de mourir à chaque collision, elle meurt, sinon elle fait demi-tour
    int m = collisions.size();
    for(int i = 0; i<m;i++){
       double test = (double) std::rand() / (RAND_MAX);
       if (test<=listeBestioles[collisions[i]]->getCollision()){
          listeBestioles.erase(listeBestioles.begin() + collisions[i]);
          cout<<"Mort par collision"<<endl;
+         //On décale les indices suivant de -1
          if (i!=m-1){
             for (int j=i+1;j<m;j++){
                collisions[j]=collisions[j]-1;
@@ -158,17 +191,9 @@ void Milieu::step( void ){
          listeBestioles[collisions[i]]->setOrientation(M_PI - listeBestioles[collisions[i]]->getOrientation());
       }
    }
-   k = listeBestioles.size();
-   for (int i = 0; i<k; i++){
-      double test = (double) std::rand()/RAND_MAX;
-      if (test<=listeBestioles[i]->getClonage()){
-         cout<<"On va cloner une bestiole..."<<endl;
-         this->addMember(*listeBestioles[i]);
-         cout<<"Clonage"<<endl;
-      }
-   }
 }
 
+//Donne le nombre de bestiole que voit une bestiole donnée
 int Milieu::nbVoisins( const Bestiole & b ){
 
    int         nb = 0;
@@ -183,6 +208,24 @@ int Milieu::nbVoisins( const Bestiole & b ){
 
 }
 
+//Ajoute une bestiole b à listeBestioles
+void Milieu::addMember(const Bestiole & b){
+   //Cas d'une multibestiole
+   if (b.isMulti()){
+      //Nécessité de caster pour éviter le phénomène de slicing dû au polymorhpisme
+      std::shared_ptr<MultiBestiole> best = make_shared<MultiBestiole>(dynamic_cast<MultiBestiole&>(const_cast<Bestiole&>(b))); 
+      listeBestioles.push_back(best); 
+      listeBestioles.back()->initCoords(width, height);
+   }
+   //cas d'une bestiole normale
+   else {
+      std::shared_ptr<Bestiole> best = make_shared<Bestiole>(b); 
+      listeBestioles.push_back(best); 
+      listeBestioles.back()->initCoords(width, height);
+   }
+}
+
+//Liste des geter
 double Milieu::getVmax(){
    return this->v;
 }
@@ -242,17 +285,4 @@ double Milieu::getDistOreiMax(){
 std::vector<std::shared_ptr<Bestiole>> *Milieu::getListeBestioles(){
    std::vector<std::shared_ptr<Bestiole>> * ptr_listeBestioles= &listeBestioles; 
    return ptr_listeBestioles;
-}
-
-void Milieu::addMember(const Bestiole & b){
-   if (b.isMulti()){
-      std::shared_ptr<MultiBestiole> best = make_shared<MultiBestiole>(dynamic_cast<MultiBestiole&>(const_cast<Bestiole&>(b))); 
-      listeBestioles.push_back(best); 
-      listeBestioles.back()->initCoords(width, height);
-   }
-   else {
-      std::shared_ptr<Bestiole> best = make_shared<Bestiole>(b); 
-      listeBestioles.push_back(best); 
-      listeBestioles.back()->initCoords(width, height);
-   }
 }
