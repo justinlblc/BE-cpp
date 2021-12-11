@@ -281,7 +281,6 @@ double Milieu::getDistOreiMax(){
    return this->distOreiMax;
 }
    
-
 std::vector<std::shared_ptr<Bestiole>> *Milieu::getListeBestioles(){
    std::vector<std::shared_ptr<Bestiole>> * ptr_listeBestioles= &listeBestioles; 
    return ptr_listeBestioles;

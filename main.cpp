@@ -15,7 +15,7 @@ using namespace std;
 void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev){
    //Grégaire
    for (int i = 0;i<gn;i++){
-         ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &greg));   
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &greg));   
    }
 
    //Peureuse
@@ -37,7 +37,7 @@ void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire gr
 
 int main()
 {
-   
+   //Initialisation des comportements
    Gregaire greg;
 
    Kamikaze kami;
@@ -46,7 +46,11 @@ int main()
 
    Prevoyante prev;
    
+   //int n: compteur du nombre de comportements envisagés par l'utilisateur
    int n = 0;
+
+   //On demande à l'utilisateur les pourcentages qu'il souhaite
+   //Si non null, on incrémente n de 1
    int g;
    cout<<"Pourcentage de Grégaire? ";
    cin >> g;
@@ -75,21 +79,25 @@ int main()
       n++;
    }
 
+   //Combien veut-il de bestiole au total?
    int nb;
    cout << "Nombre de bestioles au total? ";
    cin >> nb;
    cout<<"Nombre: "<<n<<endl;
-  
+   
+
+   //On définie approximativement la population de base basée sur les % saisis
    int gn = ceil(nb*g/100);
    int kn = ceil(nb*k/100);
    int Pn = ceil(nb*P/100);
    int pn = ceil(nb*p/100);
    
+   //Largeur et longueur PARAMETRABLE du milieu
    int largeur = 960;
    int longueur = 1280;
 
-
-   // cas où toutes les bestioles
+   //Disjonction de cas
+   //----EXPLICATION----
    if (n==4){
       Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, true, greg, kami, peur, prev);
       lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
@@ -113,7 +121,7 @@ int main()
       }
       
    }
-   //Si deux types de bestioles
+   //Si deux types de comportements
    else if (n==2){
       if (g!=0 && k!=0){
          Aquarium       ecosysteme( longueur, largeur, 30, true, true, false, false, greg, kami, peur, prev);
@@ -145,22 +153,22 @@ int main()
    //cas où un seul type de bestiole
    else {
       if (g!=0){
-         cout<<"Que Grégaire"<<endl;
+         //cout<<"Que Grégaire"<<endl;
          Aquarium       ecosysteme( longueur, largeur, 30, true, false, false, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (k!=0){
-         cout<<"Que Kamikaze"<<endl;
+         //cout<<"Que Kamikaze"<<endl;
          Aquarium       ecosysteme( longueur, largeur, 30, false, true, false, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (P!=0){
-         cout<<"Que Peureuse"<<endl;
+         //cout<<"Que Peureuse"<<endl;
          Aquarium       ecosysteme( longueur, largeur, 30, false, false, true, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else{
-         cout<<"Que Prévoyante"<<endl;
+         //cout<<"Que Prévoyante"<<endl;
          Aquarium       ecosysteme(longueur, largeur, 30, false, false, false, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }

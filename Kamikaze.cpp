@@ -16,11 +16,16 @@ Kamikaze::Kamikaze(void){
     return;
 };
 
+//Soit "k" la bestiole kamikaze dans le milieu "monMilieu"
+//La bestiole kamikaze se dirige vers la bestiole la plus proche qu'elle détecte pour rentrer en collision avec elle
 void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
     std::vector<std::shared_ptr<Bestiole>> *liste = monMilieu.getListeBestioles();
     int k = liste->size();
+    //distance initialisée comme la plus grande possible
     double distCourte = monMilieu.getWidth();
+    //int stocke la valeur de l'index du voisin le plus proche
     int index;
+    //Boucle: si "b" détecte une bestiole plus proche que la précédente, on stocke cette distance dans distCourte.
     for (int i=0; i<k;i++){
         if (b.jeTeVois(*(*liste)[i]) && !(*(*liste)[i]==b)){
             double dist = std::sqrt((b.getX()-(*liste)[i]->getX())*(b.getX()-(*liste)[i]->getX())+((b.getY()-(*liste)[i]->getY()))*((b.getY()-(*liste)[i]->getY())));
@@ -30,7 +35,9 @@ void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
             }
         }
     }
+    //Si "b" a au moins un voisin
     if (distCourte!=monMilieu.getWidth()){
+        //Angle entre l'horizontale et l'axe reliant les deux bestioles
         double orientation = std::acos(((*liste)[index]->getX()-b.getX())/distCourte);
         if ((*liste)[index]->getY()>b.getY()){
             orientation = -orientation;
@@ -45,7 +52,4 @@ T *Kamikaze::getCouleur(){
     return this->couleur;
 }
 
-char Kamikaze::getId(){
-    return('K');
-}
 

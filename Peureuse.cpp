@@ -51,6 +51,3 @@ void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
 T *Peureuse::getCouleur(){
     return this->couleur;
 }
-char Peureuse::getId(){
-    return('P');
-}

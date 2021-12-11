@@ -44,7 +44,3 @@ void Prevoyante::comp(Bestiole& b, Milieu & monMilieu){
 T *Prevoyante::getCouleur(){
     return this->couleur;
 }
-
-char Prevoyante::getId(){
-    return('p');
-}

@@ -33,7 +33,9 @@ protected :
    double            cumulX, cumulY;
    double            orientation;
    double            vitesse;
+   //Probabilité de mourir lors d'une collision
    double            collision;
+   //Probabilité de se cloner à chaque pas de la simulation
    double            clonage;
    T               * couleur;
 
@@ -66,10 +68,14 @@ public :                                                 // Forme canonique :
    void initCoords( int xLim, int yLim );
 
    friend bool operator==( const Bestiole & b1, const Bestiole & b2 );
-   int getX();
-   int getY();
+   virtual Bestiole& operator=(const Bestiole& bestiole);
+   
    void setOrientation(double orientation);
    void setVitesse(double vitesse);
+   void setFuis(bool fuis){this->fuis=fuis;};
+
+   int getX();
+   int getY();
    double getCollision();
    int getAge();
    int getAgeLim();
@@ -79,10 +85,6 @@ public :                                                 // Forme canonique :
    double getVMAX(){return MAX_VITESSE;};
    Comportement *getComp();
    bool getFuis(){return fuis;};
-   void setFuis(bool fuis){this->fuis=fuis;};
-
-   virtual Bestiole& operator=(const Bestiole& bestiole);
-
    double getDist();
 
    virtual bool isMulti() const;

@@ -13,9 +13,8 @@ class Comportement {
     protected:
         T * couleur;
     public:
-        virtual void comp(Bestiole& b, Milieu & monMilieu)=0;
-        virtual T * getCouleur()=0;
-        virtual char getId()=0;
+        virtual void comp(Bestiole& b, Milieu & monMilieu)=0;       //Fonction définissant les mouvements propres au comportement
+        virtual T * getCouleur()=0;                                 //récupère la couleur propre au comportement                                
 };
 
 
