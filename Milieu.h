@@ -9,6 +9,10 @@
 #include <memory>
 
 using namespace std;
+class Gregaire;
+class Kamikaze;
+class Peureuse;
+class Prevoyante;
 
 class Milieu : public UImg
 {
@@ -30,6 +34,10 @@ private :
    static const double     camoMin;
       //max
    static const double     camoMax;
+
+   //naissance
+
+   static const double     naissance;
 
    //Yeux
    static const double     alphaMin;
@@ -54,7 +62,7 @@ private:
    std::vector<std::shared_ptr<Bestiole>>   listeBestioles;
 
 public :
-   Milieu( int _width, int _height );
+   Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );
    ~Milieu( void );
 
    int getWidth( void ) const { return width; };

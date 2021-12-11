@@ -10,7 +10,7 @@ Aquarium::Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3
 
    cout << "const Aquarium" << endl;
 
-   flotte = new Milieu( width, height );
+   flotte = new Milieu( width, height, b1, b2, b3, b4, greg, kami, peur, prev );
    assign( *flotte, "Simulation d'ecosysteme" );
 
    move( static_cast<int>((screenWidth-width)/2), static_cast<int>((screenHeight-height)/2) );

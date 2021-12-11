@@ -44,7 +44,7 @@ const double     Milieu::detecOreiMax = 1;
 
 
 
-Milieu::Milieu( int _width, int _height) : UImg( _width, _height, 1, 3 ),
+Milieu::Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
 
