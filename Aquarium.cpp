@@ -2,7 +2,7 @@
 #include "Milieu.h"
 
 
-Aquarium::Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev ) : CImgDisplay(), delay( _delay )
+Aquarium::Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev ) : CImgDisplay(), delay( _delay )
 {
 
    int         screenWidth = 1280; //screen_width();

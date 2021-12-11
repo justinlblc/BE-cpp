@@ -65,13 +65,13 @@ private:
    bool b3;
    bool b4;
 
-   Gregaire greg;
-   Kamikaze kami;
-   Peureuse peur;
-   Prevoyante prev;
+   Gregaire * greg;
+   Kamikaze * kami;
+   Peureuse * peur;
+   Prevoyante * prev;
 
 public :
-   Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );
+   Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev );
    ~Milieu( void );
 
    int getWidth( void ) const { return width; };

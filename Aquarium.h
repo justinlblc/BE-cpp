@@ -24,7 +24,7 @@ private :
    int            delay;
 
 public :
-   Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );
+   Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev );
    ~Aquarium( void );
 
    Milieu & getMilieu( void ) { return *flotte; }

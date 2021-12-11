@@ -12,25 +12,25 @@
 using namespace std;
 
 //fonction de lancement de simulation
-void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev){
+void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev){
    //Grégaire
    for (int i = 0;i<gn;i++){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &greg));   
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), greg));   
    }
 
    //Peureuse
    for (int i = 0;i<Pn;i++){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &peur));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), peur));
    }
 
    //Kamikaze
    for (int i = 0;i<kn;i++){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &kami));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), kami));
    }
 
    //Prévoyante
    for (int i = 0;i<pn;i++){
-      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), &prev));
+      ecosysteme.getMilieu().addMember( Bestiole(ecosysteme.getMilieu(), prev));
    }
    ecosysteme.run();
    }
@@ -38,13 +38,17 @@ void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire gr
 int main()
 {
    //Initialisation des comportements
-   Gregaire greg;
+   Gregaire gregaire;
+   Gregaire * greg = &gregaire;
 
-   Kamikaze kami;
+   Kamikaze kamikaze;
+   Kamikaze * kami = &kamikaze;
 
-   Peureuse peur;
+   Peureuse peureuse;
+   Peureuse * peur = &peureuse;
 
-   Prevoyante prev;
+   Prevoyante prevoyante;
+   Prevoyante * prev = &prevoyante;
    
    //int n: compteur du nombre de comportements envisagés par l'utilisateur
    int n = 0;
@@ -151,24 +155,24 @@ int main()
    }
 
    //cas où un seul type de bestiole
-   else {
+   else if (n==1){
       if (g!=0){
-         //cout<<"Que Grégaire"<<endl;
+         cout<<"Que Grégaire"<<endl;
          Aquarium       ecosysteme( longueur, largeur, 30, true, false, false, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (k!=0){
-         //cout<<"Que Kamikaze"<<endl;
+         cout<<"Que Kamikaze"<<endl;
          Aquarium       ecosysteme( longueur, largeur, 30, false, true, false, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (P!=0){
-         //cout<<"Que Peureuse"<<endl;
+         cout<<"Que Peureuse"<<endl;
          Aquarium       ecosysteme( longueur, largeur, 30, false, false, true, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else{
-         //cout<<"Que Prévoyante"<<endl;
+         cout<<"Que Prévoyante"<<endl;
          Aquarium       ecosysteme(longueur, largeur, 30, false, false, false, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }

@@ -62,7 +62,7 @@ bool predicatMortSpontanee(std::shared_ptr<Bestiole> b){
    return (b->getAge()>=b->getAgeLim());
 }
 
-Milieu::Milieu( int _width, int _height,  bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev) : UImg( _width, _height, 1, 3 ),
+Milieu::Milieu( int _width, int _height,  bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
    this->b1=b1;
@@ -85,31 +85,40 @@ Milieu::~Milieu( void )
 {
    
    cout << "dest Milieu" << endl;
-
 }
+
+
+/*
+Fonction de naissance spontanée. Tire un nombre aléatoire pour savoir quel type de bestoile va nâitre.
+
+Input: None
+
+Output: None
+*/
 void Milieu::naissanceSpont(){
    double nait = static_cast<double>( std::rand() )/RAND_MAX;
    if (nait<this->naissance){
-      //cout<<nait<<endl;
+      cout<<nait<<endl;
       int i = std::rand()% 5 +1;
+      cout<<"Nombre aléatoire: "<<i<<endl;
       if (i==1 && b1==true){
-         this->addMember(Bestiole(*this, &greg));
+         this->addMember(Bestiole(*this, this->greg));
          cout<<"Naissance spontanée Grégaire."<<endl;
       }
       else if (i==2 && b2==true){
-         this->addMember(Bestiole(*this, &kami));
+         this->addMember(Bestiole(*this, this->kami));
          cout<<"Naissance spontanée Kamikaze."<<endl;
       }
       else if (i==3 && b3==true){
-         this->addMember(Bestiole(*this, &peur));
+         this->addMember(Bestiole(*this, this->peur));
          cout<<"Naissance spontanée Peureuse."<<endl;
       }
       else if (i==4 && b4==true){
-         this->addMember(Bestiole(*this, &prev));
+         this->addMember(Bestiole(*this, this->prev));
          cout<<"Naissance spontanée Prévoyante."<<endl;
       }
       else if (i==5){
-         this->addMember(MultiBestiole(*this, b1, b2, b3, b4, &greg, &kami, &peur, &prev));
+         this->addMember(MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev));
          cout<<"Naissance spontanée Multibestiole"<<endl;        
       }
       else {
@@ -132,7 +141,7 @@ void Milieu::step( void ){
    }
 
    //mort spontanée
-   //for (int i = 0; i<k; i++){
+   //for (int i = 0; i<t; i++){
       //if (listeBestioles[i]->getAge()==listeBestioles[i]->getAgeLim()){
          //listeBestioles.erase(listeBestioles.begin() +i);
          //cout<<"Mort spontanée"<<endl;
@@ -178,13 +187,16 @@ void Milieu::step( void ){
    for(int i = 0; i<m;i++){
       double test = (double) std::rand() / (RAND_MAX);
       if (test<=listeBestioles[collisions[i]]->getCollision()){
+         cout<<"Attention mort par collision"<<endl;
          listeBestioles.erase(listeBestioles.begin() + collisions[i]);
          cout<<"Mort par collision"<<endl;
          //On décale les indices suivant de -1
          if (i!=m-1){
+            //cout<<"Pb de segmentation?"<<endl;
             for (int j=i+1;j<m;j++){
                collisions[j]=collisions[j]-1;
             }
+            //cout<<"Non"<<endl;
          }
       }
       else{
