@@ -10,6 +10,10 @@
 using namespace std;
 
 class Bestiole;
+class Gregaire;
+class Kamikaze;
+class Peureuse;
+class Prevoyante;
 
 class Milieu : public UImg
 {
@@ -58,7 +62,7 @@ private:
    std::vector<std::shared_ptr<Bestiole>>   listeBestioles;
 
 public :
-   Milieu( int _width, int _height );
+   Milieu( int _width, int _height, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );
    ~Milieu( void );
 
    int getWidth( void ) const { return width; };
