@@ -1,15 +1,19 @@
 #ifndef _AQUARIUM_H_
 #define _AQUARIUM_H_
 
-
 #include <iostream>
 #include <CImg.h>
+
+#include "Milieu.h"
+#include "Gregaire.h"
+#include "Kamikaze.h"
+#include "Peureuse.h"
+#include "Prevoyante.h"
 
 using namespace std;
 using namespace cimg_library;
 
 
-class Milieu;
 
 
 class Aquarium : public CImgDisplay
@@ -21,7 +25,7 @@ private :
    int            delay;
 
 public :
-   Aquarium( int width, int height, int _delay );
+   Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire greg, Kamikaze kami, Peureuse peur, Prevoyante prev );
    ~Aquarium( void );
 
    Milieu & getMilieu( void ) { return *flotte; }

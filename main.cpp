@@ -90,7 +90,7 @@ int main()
 
 
 
-Aquarium       ecosysteme( longueur, largeur, 30 );
+Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, true, greg, kami, peur, prev);
 
 
    lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
