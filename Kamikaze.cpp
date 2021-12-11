@@ -36,7 +36,9 @@ void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
         if ((*liste)[index]->getY()>b.getY()){
             orientation = -orientation;
         }
-        b.setOrientation(orientation);
+        if (b.getOrientation()!=orientation){
+            b.setOrientation(orientation);
+        }
     }
     cout<<"Kamikaze"<<endl;
 }

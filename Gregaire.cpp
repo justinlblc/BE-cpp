@@ -28,7 +28,9 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
                 orientation+=(*liste)[i]->getOrientation();
             }
         }
-        b.setOrientation(orientation/nbVoisin);
+        if (b.getOrientation()!=orientation){
+            b.setOrientation(orientation/nbVoisin);
+        }
     }
     cout<<"Gregaire"<<endl;
 }
