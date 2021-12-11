@@ -19,6 +19,7 @@ public:
     Kamikaze(void);
     void comp(Bestiole& b, Milieu & monMilieu);
     T * getCouleur();
+    char getId();
 
 };
 

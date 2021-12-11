@@ -16,6 +16,7 @@ class Comportement {
     public:
         virtual void comp(Bestiole& b, Milieu & monMilieu)=0;
         virtual T * getCouleur()=0;
+        virtual char getId()=0;
 };
 
 

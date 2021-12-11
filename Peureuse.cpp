@@ -47,8 +47,12 @@ void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
         b.setFuis(false); //La bestiole ne fuit pas
         b.setVitesse(this->vitesse);
     }
+    cout<<"Peureuse"<<endl;
 }
 
 T *Peureuse::getCouleur(){
     return this->couleur;
+}
+char Peureuse::getId(){
+    return('P');
 }

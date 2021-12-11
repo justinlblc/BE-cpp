@@ -38,9 +38,14 @@ void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
         }
         b.setOrientation(orientation);
     }
+    cout<<"Kamikaze"<<endl;
 }
 
 T *Kamikaze::getCouleur(){
     return this->couleur;
+}
+
+char Kamikaze::getId(){
+    return('K');
 }
 

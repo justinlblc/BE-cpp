@@ -15,8 +15,10 @@ MultiBestiole::MultiBestiole(Milieu & milieu, Gregaire * greg, Kamikaze * kami, 
     this->kami=kami;
     this->peur=peur;
     this->prev=prev;
-
+    //cout<<"Avant random: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
     this->setRandComp();
+    //cout<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
+    //cout<<"Après random: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
     this->setCouleur(this->comp->getCouleur());
 }
 
@@ -28,8 +30,10 @@ MultiBestiole::MultiBestiole( const MultiBestiole & b):Bestiole(b){
 }
 
 void MultiBestiole::action(Milieu & monMilieu){
-    if (this->age%100==0){
+    if (this->age%100==0 && this->age!=0){
+        //cout<<"Avant: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
         this->setRandComp();
+        //cout<<"Après: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
         this->setCouleur(this->comp->getCouleur());
     }
     comp->comp(*this, monMilieu);
@@ -38,17 +42,20 @@ void MultiBestiole::action(Milieu & monMilieu){
 }
 
 void MultiBestiole::setRandComp(){
-    int i = (int) std::rand()%(4-1)-1;
-    switch(i){
-        case 1:
-            this->comp=greg;
-        case 2:
-            this->comp=kami;
-        case 3:
-            this->comp=peur;
-        case 4:
-            this->comp=prev;
+    int i = rand()% 4 +1;
+    //cout<<"Random comp: "<<i<<endl;
+    if (i==1){
+        this->comp=greg;
     }
+    else if (i==2){
+        this->comp=kami;
+    }
+    else if (i==3){
+        this->comp=peur;
+    }
+    else if (i==4){
+        this->comp=prev;
+    }        
 }
 
 void MultiBestiole::setCouleur(T * coul){

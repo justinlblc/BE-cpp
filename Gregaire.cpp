@@ -30,9 +30,14 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
         }
         b.setOrientation(orientation/nbVoisin);
     }
+    cout<<"Gregaire"<<endl;
 }
 
 T *Gregaire::getCouleur(){
     return this->couleur;
+}
+
+char Gregaire::getId(){
+    return ('G');
 }
 //destructeur
