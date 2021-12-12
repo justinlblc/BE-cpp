@@ -276,6 +276,7 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
       return false;
    }
 
+
    //Distance entre la bestiole "this" et la bestiole "b"
    double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );
 
