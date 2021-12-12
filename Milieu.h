@@ -2,6 +2,7 @@
 #define _MILIEU_H_
 
 #include "Gregaire.h"
+#include "Aquarium.h"
 #include "Kamikaze.h"
 #include "Prevoyante.h"
 #include "Peureuse.h"
@@ -102,6 +103,7 @@ public :
    double getDetecOreiMin();
    double getDistOreiMin();
    double getDistOreiMax();
+   double getNaissance(){return this->naissance;};
    
    std::vector<std::shared_ptr<Bestiole>> *getListeBestioles();
 
