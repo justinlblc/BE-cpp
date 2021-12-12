@@ -102,23 +102,33 @@ void Milieu::naissanceSpont(){
       int i = std::rand()% 5 +1;
       cout<<"Nombre aléatoire: "<<i<<endl;
       if (i==1 && b1==true){
-         this->addMember(*(new Bestiole(*this, this->greg)));
+         Bestiole * b1 = new Bestiole(*this, this->greg);
+         //this->addMember(*(new Bestiole(*this, this->greg)));
+         addMember(*b1);
          cout<<"Naissance spontanée Grégaire."<<endl;
       }
       else if (i==2 && b2==true){
-         this->addMember(*(new Bestiole(*this, this->kami)));
+         Bestiole * b = new Bestiole(*this, this->kami);
+         //this->addMember(*(new Bestiole(*this, this->kami)));
+         addMember(*b);
          cout<<"Naissance spontanée Kamikaze."<<endl;
       }
       else if (i==3 && b3==true){
-         this->addMember(*(new Bestiole(*this, this->peur)));
+         Bestiole * b = new Bestiole(*this, this->peur);
+         //this->addMember(*(new Bestiole(*this, this->peur)));
+         addMember(*b);
          cout<<"Naissance spontanée Peureuse."<<endl;
       }
       else if (i==4 && b4==true){
-         this->addMember(*(new Bestiole(*this, this->prev)));
+         Bestiole * b = new Bestiole(*this, this->prev);
+         //this->addMember(*(new Bestiole(*this, this->prev)));
+         addMember(*b);
          cout<<"Naissance spontanée Prévoyante."<<endl;
       }
       else if (i==5){
-         this->addMember(*(new MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev)));
+         Bestiole * b = new MultiBestiole(*this, b1, b2, b3, b4, greg, kami, peur, prev);
+         //this->addMember(*(new MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev)));
+         addMember(*b);
          cout<<"Naissance spontanée Multibestiole"<<endl;        
       }
       else {
