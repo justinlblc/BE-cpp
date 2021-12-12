@@ -130,7 +130,7 @@ void Milieu::naissanceSpont(){
 void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    //Naissance spontanée
-   naissanceSpont();
+   //naissanceSpont();
 
    //Mouvement des bestioles à chaque pas de la simulation
    int t = listeBestioles.size();

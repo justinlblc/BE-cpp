@@ -106,7 +106,7 @@ Bestiole::Bestiole( const Bestiole & b){
    identite = ++next;
 
 
-   age=b.age;
+   age=0;
    AGE_LIM=b.AGE_LIM;
 
    x = b.x;
