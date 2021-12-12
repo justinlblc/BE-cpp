@@ -104,6 +104,11 @@ public :
    double getDistOreiMin();
    double getDistOreiMax();
    double getNaissance(){return this->naissance;};
+
+   bool getb1(){return this->b1;};
+   bool getb2(){return this->b2;};
+   bool getb3(){return this->b3;};
+   bool getb4(){return this->b4;};
    
    std::vector<std::shared_ptr<Bestiole>> *getListeBestioles();
 

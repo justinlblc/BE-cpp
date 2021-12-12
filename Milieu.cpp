@@ -101,32 +101,32 @@ void Milieu::naissanceSpont(){
       cout<<nait<<endl;
       int i = std::rand()% 5 +1;
       //cout<<"Nombre aléatoire: "<<i<<endl;
-      if (i==1 && b1==true){
+      if (i==1 && this->b1==true){
          Bestiole * b = new Bestiole(*this, this->greg);
          //this->addMember(*(new Bestiole(*this, this->greg)));
          addMember(*b);
          cout<<"Naissance spontanée Grégaire."<<endl;
       }
-      else if (i==2 && b2==true){
+      else if (i==2 && this->b2==true){
          Bestiole * b = new Bestiole(*this, this->kami);
          //this->addMember(*(new Bestiole(*this, this->kami)));
          addMember(*b);
          cout<<"Naissance spontanée Kamikaze."<<endl;
       }
-      else if (i==3 && b3==true){
+      else if (i==3 && this->b3==true){
          Bestiole * b = new Bestiole(*this, this->peur);
          //this->addMember(*(new Bestiole(*this, this->peur)));
          addMember(*b);
          cout<<"Naissance spontanée Peureuse."<<endl;
       }
-      else if (i==4 && b4==true){
+      else if (i==4 && this->b4==true){
          Bestiole * b = new Bestiole(*this, this->prev);
          //this->addMember(*(new Bestiole(*this, this->prev)));
          addMember(*b);
          cout<<"Naissance spontanée Prévoyante."<<endl;
       }
       else if (i==5){
-         Bestiole * b = new MultiBestiole(*this, b1, b2, b3, b4, greg, kami, peur, prev);
+         Bestiole * b = new MultiBestiole(*this, this->greg, this->kami, this->peur, this->prev);
          //this->addMember(*(new MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev)));
          addMember(*b);
          cout<<"Naissance spontanée Multibestiole"<<endl;        
@@ -140,8 +140,8 @@ void Milieu::naissanceSpont(){
 void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    //Naissance spontanée
-   //naissanceSpont();
-
+   naissanceSpont();
+   
    //Mouvement des bestioles à chaque pas de la simulation
    int t = listeBestioles.size();
    for ( int i = 0; i<t;i++)
