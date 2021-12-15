@@ -106,7 +106,7 @@ Bestiole::Bestiole( const Bestiole & b){
    identite = ++next;
 
 
-   age=b.age;
+   age=0;
    AGE_LIM=b.AGE_LIM;
 
    x = b.x;
@@ -275,6 +275,7 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
    if (oreiDetec<b.oreiDetec || yeuxDetec<b.camo){
       return false;
    }
+
 
    //Distance entre la bestiole "this" et la bestiole "b"
    double dist = std::sqrt( (x-b.x)*(x-b.x) + (y-b.y)*(y-b.y) );

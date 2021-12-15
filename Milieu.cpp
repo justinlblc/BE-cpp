@@ -57,7 +57,7 @@ bool predicatMortSpontanee(std::shared_ptr<Bestiole> b){
    //cout <<"Son âge limite: "<<b->getAgeLim()<<endl;
    //cout << (b->getAge()>=b->getAgeLim())<<endl;
    if (b->getAge()>=b->getAgeLim()){
-      cout<<"Mort spontanée"<<endl;
+      //cout<<"Mort spontanée"<<endl;
    }
    return (b->getAge()>=b->getAgeLim());
 }
@@ -100,25 +100,35 @@ void Milieu::naissanceSpont(){
    if (nait<this->naissance){
       cout<<nait<<endl;
       int i = std::rand()% 5 +1;
-      cout<<"Nombre aléatoire: "<<i<<endl;
-      if (i==1 && b1==true){
-         this->addMember(Bestiole(*this, this->greg));
+      //cout<<"Nombre aléatoire: "<<i<<endl;
+      if (i==1 && this->b1==true){
+         Bestiole * b = new Bestiole(*this, this->greg);
+         //this->addMember(*(new Bestiole(*this, this->greg)));
+         addMember(*b);
          cout<<"Naissance spontanée Grégaire."<<endl;
       }
-      else if (i==2 && b2==true){
-         this->addMember(Bestiole(*this, this->kami));
+      else if (i==2 && this->b2==true){
+         Bestiole * b = new Bestiole(*this, this->kami);
+         //this->addMember(*(new Bestiole(*this, this->kami)));
+         addMember(*b);
          cout<<"Naissance spontanée Kamikaze."<<endl;
       }
-      else if (i==3 && b3==true){
-         this->addMember(Bestiole(*this, this->peur));
+      else if (i==3 && this->b3==true){
+         Bestiole * b = new Bestiole(*this, this->peur);
+         //this->addMember(*(new Bestiole(*this, this->peur)));
+         addMember(*b);
          cout<<"Naissance spontanée Peureuse."<<endl;
       }
-      else if (i==4 && b4==true){
-         this->addMember(Bestiole(*this, this->prev));
+      else if (i==4 && this->b4==true){
+         Bestiole * b = new Bestiole(*this, this->prev);
+         //this->addMember(*(new Bestiole(*this, this->prev)));
+         addMember(*b);
          cout<<"Naissance spontanée Prévoyante."<<endl;
       }
       else if (i==5){
-         this->addMember(MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev));
+         Bestiole * b = new MultiBestiole(*this, this->greg, this->kami, this->peur, this->prev);
+         //this->addMember(*(new MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev)));
+         addMember(*b);
          cout<<"Naissance spontanée Multibestiole"<<endl;        
       }
       else {
@@ -131,7 +141,7 @@ void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    //Naissance spontanée
    naissanceSpont();
-
+   
    //Mouvement des bestioles à chaque pas de la simulation
    int t = listeBestioles.size();
    for ( int i = 0; i<t;i++)
@@ -149,19 +159,18 @@ void Milieu::step( void ){
       //}
    //}
    listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(),predicatMortSpontanee), listeBestioles.end());
-
    int k = listeBestioles.size();
 
    //Clonage des bestioles
    for (int i = 0; i<k; i++){
       double test = (double) std::rand()/RAND_MAX;
       if (test<=listeBestioles[i]->getClonage()){
-         cout<<"On va cloner une bestiole..."<<endl;
+         //cout<<"On va cloner une bestiole..."<<endl;
          this->addMember(*listeBestioles[i]);
-         cout<<"Clonage"<<endl;
+         //cout<<"Clonage"<<endl;
       }
    }
-
+ 
    k = listeBestioles.size();
    //Vecteur contenant les indices des bestioles qui rentrent en collisions à linstant t.
    //L'indice est celui des bestioles dans listeBestioles
@@ -187,9 +196,9 @@ void Milieu::step( void ){
    for(int i = 0; i<m;i++){
       double test = (double) std::rand() / (RAND_MAX);
       if (test<=listeBestioles[collisions[i]]->getCollision()){
-         cout<<"Attention mort par collision"<<endl;
+         //cout<<"Attention mort par collision"<<endl;
          listeBestioles.erase(listeBestioles.begin() + collisions[i]);
-         cout<<"Mort par collision"<<endl;
+         //cout<<"Mort par collision"<<endl;
          //On décale les indices suivant de -1
          if (i!=m-1){
             //cout<<"Pb de segmentation?"<<endl;
@@ -204,6 +213,7 @@ void Milieu::step( void ){
       }
    }
 }
+
 
 //Donne le nombre de bestiole que voit une bestiole donnée
 int Milieu::nbVoisins( const Bestiole & b ){
