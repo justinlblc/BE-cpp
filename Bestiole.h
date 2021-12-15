@@ -23,6 +23,13 @@ protected :
    static int              next;
    static T              * couleurCarap;
 
+   static const double      CARAPACE;
+   static const double      CAMOUFLAGE;
+   static const double      NAGEOIRES;
+
+   static const double      OREILLES;
+   static const double      YEUX;
+
 protected :
    int               AGE_LIM;
 
@@ -40,9 +47,10 @@ protected :
    T               * couleur;
 
    bool              fuis=false;
-   
+   //Accessoires
    double            camo;
-
+   double            multiRedV;
+   double            multiV;
    //capteur
       //yeux
    double            angle;

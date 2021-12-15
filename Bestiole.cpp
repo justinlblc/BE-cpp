@@ -6,6 +6,15 @@
 #include <cstdlib>
 #include <cmath>
 
+/*
+La classe Bestiole est la classe mère de toutes les Bestioles. On peut y définir:
+         - AFF_SIZE: la taille des bestioles
+         - MAX_VITESSE: la vitesse maximale des bestioles
+
+On initialise aléatoirement les valeurs caractéristiques des accessoires et des capteurs dans le constructeur de chaque Bestioles
+grâce à la fonction Rand.
+*/
+
 //Constantes propres à toutes les bestioles
 const double      Bestiole::AFF_SIZE = 8.;
 const double      Bestiole::MAX_VITESSE = 10.;
@@ -14,6 +23,17 @@ const double      Bestiole::MAX_VITESSE = 10.;
 int               Bestiole::next = 0;
 
 T                *Bestiole::couleurCarap = new T[3];
+
+//Accessoires
+   //Probabilités d'avoir des accessoires
+const double      Bestiole::CARAPACE=0.7;
+const double      Bestiole::CAMOUFLAGE=0.7;
+const double      Bestiole::NAGEOIRES=0.7;
+
+//Capteurs
+   //Probabilités d'avoir des capteurs
+const double      Bestiole::OREILLES=0.7;
+const double      Bestiole::YEUX=0.7;
 
 //prend en entrée 2 flottant et renvoie un flottant aléatoire entre les deux
 double Rand(double min, double max){
@@ -29,32 +49,65 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
 
    //Accesoires
       //Nageoires
-   double multiV=Rand(1, milieu.getVmax());
+         //Valeur par défaut
+   multiV=1;
+
+   double b=Rand(0,1);
+   if (b<NAGEOIRES){
+      multiV=Rand(1, milieu.getVmax());
+   }
 
       //Carapace
-         //resistance
-   double multiW=Rand(1, milieu.getResmax());
-         //reduction de la vitesse
-   double multiRedV=Rand(1, milieu.getRedV());
+         //Valeurs par défaut
+   double multiW=1;
+   this->multiRedV=1;
 
+   b=Rand(0,1);
+   if (b<CARAPACE){
+         //resistance
+      multiW=Rand(1, milieu.getResmax());
+         //reduction de la vitesse
+      multiRedV=Rand(1, milieu.getRedV());
+   }
       //Camouflage
-   camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
+         //Valeur par défaut
+   camo = 0;
+
+   b=Rand(0,1);
+   if (b<CAMOUFLAGE){
+      camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
+   }
    
    //Capteur
       //Yeux
+   angle=0;
+   yeuxDist=0;
+   yeuxDetec=0;
+
+   b=Rand(0,1);
+   if (b<YEUX){
          //angle
-   angle = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
+      angle = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
          //distance
-   yeuxDist = Rand(milieu.getDistYeuxMin(), milieu.getDistYeuxMax());
+      yeuxDist = Rand(milieu.getDistYeuxMin(), milieu.getDistYeuxMax());
          //Capacité de detection
-   yeuxDetec = Rand(milieu.getDetecYeuxMin(), milieu.getDetecYeuxMax());
+      yeuxDetec = Rand(milieu.getDetecYeuxMin(), milieu.getDetecYeuxMax());
+   }
 
       //Oreilles
-   oreiDetec = Rand(milieu.getDetecOreiMin(), milieu.getDetecOreiMax());
-   oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
+         //Valeurs par défaut
+   oreiDetec=0;
+   oreiDist=0;
+
+   b=Rand(0,1);
+   if (b<OREILLES){
+      oreiDetec = Rand(milieu.getDetecOreiMin(), milieu.getDetecOreiMax());
+      oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
+   }
 
    collision = 0.2/multiW;
-   clonage=0.003;
+   clonage=0;
+   //clonage=0.003;
 
    identite = ++next;
 
@@ -90,7 +143,10 @@ Bestiole::Bestiole( const Bestiole & b){
    fuis=b.fuis;
    collision=b.collision;
    clonage=b.clonage;
+   //Accessoires
    camo=b.camo;
+   multiRedV=b.multiRedV;
+   multiV=b.multiV;
    //capteurs
    //yeux
    angle=b.angle;
@@ -137,8 +193,10 @@ Bestiole& Bestiole::operator=(const Bestiole& b){
 
       x=b.x;
       y=b.y;
-
+      //Accessoires
       camo=b.camo;
+      multiRedV=b.multiRedV;
+      multiV=b.multiV;
       //capteurs
       //yeux
       angle=b.angle;
@@ -247,8 +305,11 @@ void Bestiole::draw( UImg & support )
    support.draw_ellipse( x, y, AFF_SIZE, AFF_SIZE/5., -orientation/M_PI*180., couleur );
    support.draw_circle( xt, yt, AFF_SIZE/2., couleur );
 
-   //Dessin de la carapace
-   support.draw_circle(x,y,AFF_SIZE/4., couleurCarap, 10000000);
+   if (this->multiRedV>1){
+         //Dessin de la carapace
+      support.draw_circle(x,y,AFF_SIZE/4., couleurCarap, 10000000);
+   }
+   
 
 }
 

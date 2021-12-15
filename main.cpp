@@ -50,6 +50,9 @@ int main()
    Prevoyante prevoyante;
    Prevoyante * prev = &prevoyante;
    
+   //Temps en millisecondes entre chaque étapes de la simulation
+   double delay = 30;
+
    //int n: compteur du nombre de comportements envisagés par l'utilisateur
    int n = 0;
 
@@ -103,24 +106,24 @@ int main()
    //Disjonction de cas
    //----EXPLICATION----
    if (n==4){
-      Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, true, greg, kami, peur, prev);
+      Aquarium       ecosysteme( longueur, largeur, delay, true, true, true, true, greg, kami, peur, prev);
       lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
    }
    else if (n==3){
       if (g!=0 && k!=0 && P!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, true, true, true, false, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, true, true, true, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (g!=0 && k!=00 && p!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, true, true, false, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, true, true, false, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if(g!=0 && P!=0 && p!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, true, false, true, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, true, false, true, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else {
-         Aquarium       ecosysteme( longueur, largeur, 30, false, true, true, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, false, true, true, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       
@@ -128,27 +131,27 @@ int main()
    //Si deux types de comportements
    else if (n==2){
       if (g!=0 && k!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, true, true, false, false, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, true, true, false, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (g!=0 && P!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, true, false, true, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, true, false, true, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (g!=0 && p!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, true, false, false, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, true, false, false, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (k!=0 && P!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, false, true, true, false, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, false, true, true, false, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else if (k!=0 && p!=0){
-         Aquarium       ecosysteme( longueur, largeur, 30, false, true, false, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, false, true, false, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
       else {
-         Aquarium       ecosysteme( longueur, largeur, 30, false, false, true, true, greg, kami, peur, prev);
+         Aquarium       ecosysteme( longueur, largeur, delay, false, false, true, true, greg, kami, peur, prev);
          lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
       }
 

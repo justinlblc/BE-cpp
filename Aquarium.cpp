@@ -1,5 +1,14 @@
 #include "Aquarium.h"
 #include "Milieu.h"
+/*
+Classe Aquarium:
+
+C'est la classe qui s'occupe de simuler notre ecosystème via la méthode "run". Elle permet notamment l'initialisation du milieu en passant lui passant
+tous les paramètres nécessaires à la simulation. On peut notamment y définir la largeur et longueur de la fenêtre. via les variablles:
+            - screenWidth: longueur
+            - screenHeight: largeur
+
+*/
 
 
 Aquarium::Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev ) : CImgDisplay(), delay( _delay )
