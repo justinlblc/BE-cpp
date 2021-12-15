@@ -38,8 +38,8 @@ void Peureuse::comp(Bestiole& b, Milieu & monMilieu){
             vitesse=b.getVitesse();
             b.setVitesse(b.getVMAX());
             b.setFuis(true); //La bestiole est en train de fuire    
+            b.setOrientation(-b.getOrientation()); //demi tour
         }
-        b.setOrientation(-b.getOrientation()); //demi tour
     }
     //sortie de la fuite
     else if (nbVoisin<tolerance && b.getFuis()){

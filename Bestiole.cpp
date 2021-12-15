@@ -149,7 +149,7 @@ Bestiole& Bestiole::operator=(const Bestiole& b){
       oreiDetec = b.oreiDetec;
       oreiDist = b.oreiDist;
 
-      age=b.age;
+      age=0;
       AGE_LIM=b.AGE_LIM;
 
       cumulX = cumulY = 0.;

@@ -32,7 +32,7 @@ const double    Milieu::camoMax=1;
 
 //naissance
 
-const double Milieu::naissance=0.1;
+const double Milieu::naissance=0.05;
 //yeux
 const double    Milieu::alphaMin = 0;
 const double    Milieu::alphaMax = M_PI;
