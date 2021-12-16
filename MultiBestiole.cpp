@@ -40,7 +40,7 @@ void MultiBestiole::action(Milieu & monMilieu){
     //Nouveau comportement tous les 100 pas de simulation
     if (this->age%100==0 && this->age!=0){
         //cout<<"Avant: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
-        cout<<"Age limite "<<this->getAgeLim()<< " âge réel "<<this->getAge()<<endl;
+        //cout<<"Age limite "<<this->getAgeLim()<< " âge réel "<<this->getAge()<<endl;
         //Nouveau comportement
         this->setRandComp(monMilieu);
         //cout<<"Après: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
@@ -58,9 +58,9 @@ Input: Milieu
 Output: None
 */
 void MultiBestiole::setRandComp(Milieu & monMilieu){
-    cout<<"Bug?"<<endl;
+    //cout<<"Bug?"<<endl;
     int i = rand()% 4 +1;
-    cout<<"Random comp: "<<i<<endl;
+    //cout<<"Random comp: "<<i<<endl;
 
     if (i==1 && monMilieu.getb1()==true){
         //cout<<"Pas bug"<<endl;

@@ -75,7 +75,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
          //Valeur par défaut
    camo = 0;
 
-   b=Rand(0,1);
+   b=Rand(0.,1.);
    if (b<CAMOUFLAGE){
       camo = Rand(milieu.getCamoMin(), milieu.getCamoMax());
    }
@@ -86,7 +86,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    yeuxDist=0;
    yeuxDetec=0;
 
-   b=Rand(0,1);
+   b=Rand(0.,1.);
    if (b<YEUX){
          //angle
       angle = Rand(milieu.getAlphaMin(), milieu.getAlphaMax());
@@ -101,7 +101,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    oreiDetec=0;
    oreiDist=0;
 
-   b=Rand(0,1);
+   b=Rand(0.,1.);
    if (b<OREILLES){
       oreiDetec = Rand(milieu.getDetecOreiMin(), milieu.getDetecOreiMax());
       oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
@@ -317,6 +317,10 @@ void Bestiole::draw( UImg & support )
       support.draw_circle(x,y,AFF_SIZE/4., couleurCarap, 10000000);
    }
    
+   //if (this->angle!=0){
+         //Dessin des yeux
+     //support.draw_ellipse( xt+AFF_SIZE/2., yt, AFF_SIZE/8., AFF_SIZE/6., -orientation/M_PI*180., couleurCarap );
+   //}
 
 }
 
