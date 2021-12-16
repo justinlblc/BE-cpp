@@ -16,14 +16,13 @@ Kamikaze::Kamikaze(void){
     return;
 };
 
-//Soit "k" la bestiole kamikaze dans le milieu "monMilieu"
 //La bestiole kamikaze se dirige vers la bestiole la plus proche qu'elle détecte pour rentrer en collision avec elle
 void Kamikaze::comp(Bestiole& b, Milieu & monMilieu){
     std::vector<std::shared_ptr<Bestiole>> *liste = monMilieu.getListeBestioles();
     int k = liste->size();
     //distance initialisée comme la plus grande possible
     double distCourte = monMilieu.getWidth();
-    //int stocke la valeur de l'index du voisin le plus proche
+    //int stocke la valeur de l'index du voisin le plus proche dans listeBestioles
     int index;
     //Boucle: si "b" détecte une bestiole plus proche que la précédente, on stocke cette distance dans distCourte.
     for (int i=0; i<k;i++){

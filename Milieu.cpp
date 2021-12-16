@@ -52,16 +52,18 @@ const double     Milieu::distOreiMax = 30;
 const double     Milieu::detecOreiMin = 0;
 const double     Milieu::detecOreiMax = 1;
 
+
+//Fonction prédicat pour la mort par vieillesse
 bool predicatMortSpontanee(std::shared_ptr<Bestiole> b){
    //cout<<"Age de la bestiole: "<<b->getAge()<<endl;
    //cout <<"Son âge limite: "<<b->getAgeLim()<<endl;
    //cout << (b->getAge()>=b->getAgeLim())<<endl;
    if (b->getAge()>=b->getAgeLim()){
-      //cout<<"Mort spontanée"<<endl;
    }
    return (b->getAge()>=b->getAgeLim());
 }
 
+//Constructeur
 Milieu::Milieu( int _width, int _height,  bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev) : UImg( _width, _height, 1, 3 ),
                                             width(_width), height(_height)
 {
@@ -80,7 +82,7 @@ Milieu::Milieu( int _width, int _height,  bool b1, bool b2, bool b3, bool b4, Gr
 
 }
 
-
+//Destructeur
 Milieu::~Milieu( void )
 {
    
@@ -90,6 +92,7 @@ Milieu::~Milieu( void )
 
 /*
 Fonction de naissance spontanée. Tire un nombre aléatoire pour savoir quel type de bestoile va nâitre.
+Fontion récursive: si le comportement tiré n'a pas été choisis lors de l'initialisation, relance la fonction.
 
 Input: None
 
@@ -137,6 +140,7 @@ void Milieu::naissanceSpont(){
    }
 }
 
+// Fonction lancée toutes les "delay" Millisecondes (définie dans milieu)
 void Milieu::step( void ){
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
    //Naissance spontanée
@@ -151,6 +155,7 @@ void Milieu::step( void ){
    }
 
    //mort spontanée
+
    //for (int i = 0; i<t; i++){
       //if (listeBestioles[i]->getAge()==listeBestioles[i]->getAgeLim()){
          //listeBestioles.erase(listeBestioles.begin() +i);
@@ -158,6 +163,7 @@ void Milieu::step( void ){
          //break;
       //}
    //}
+
    listeBestioles.erase(std::remove_if(listeBestioles.begin(), listeBestioles.end(),predicatMortSpontanee), listeBestioles.end());
    int k = listeBestioles.size();
 
@@ -172,6 +178,7 @@ void Milieu::step( void ){
    }
  
    k = listeBestioles.size();
+   
    //Vecteur contenant les indices des bestioles qui rentrent en collisions à linstant t.
    //L'indice est celui des bestioles dans listeBestioles
    std::vector<int> collisions;

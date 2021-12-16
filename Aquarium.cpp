@@ -3,13 +3,18 @@
 /*
 Classe Aquarium:
 
-C'est la classe qui s'occupe de simuler notre ecosystème via la méthode "run". Elle permet notamment l'initialisation du milieu en passant lui passant
+Cette classe s'occupe de simuler notre ecosystème via la méthode "run". Elle permet notamment l'initialisation du milieu en passant lui passant
 tous les paramètres nécessaires à la simulation. On peut notamment y définir la largeur et longueur de la fenêtre. via les variablles:
             - screenWidth: longueur
             - screenHeight: largeur
 
 */
 
+/*
+Constructeur:
+Input: Largeur, longueur du milieu, délai entre chaque pas de la simulation, 4 booléen (représentant les comportements choisis par l'utilsiateur,
+dans l'ordre: Grégaire, Kamikaze, Peureuse et Prévoyante), puis les ' pointeurs vers les 4 comportements.
+*/
 
 Aquarium::Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3, bool b4, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev ) : CImgDisplay(), delay( _delay )
 {
@@ -27,7 +32,7 @@ Aquarium::Aquarium( int width, int height, int _delay, bool b1, bool b2, bool b3
 
 }
 
-
+//Destructeur
 Aquarium::~Aquarium( void )
 {
 
@@ -37,7 +42,7 @@ Aquarium::~Aquarium( void )
 
 }
 
-
+//Lancement de la simulation
 void Aquarium::run( void )
 {
 

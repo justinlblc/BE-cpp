@@ -11,6 +11,8 @@ La classe Bestiole est la classe mère de toutes les Bestioles. On peut y défin
          - AFF_SIZE: la taille des bestioles
          - MAX_VITESSE: la vitesse maximale des bestioles
 
+         - CARAPACE, CAMOUFLAGE, NAEGOIRES, OREILLES et YEUX, les probabilités de posséder ces accessories/capteurs
+
 On initialise aléatoirement les valeurs caractéristiques des accessoires et des capteurs dans le constructeur de chaque Bestioles
 grâce à la fonction Rand.
 */
@@ -35,7 +37,7 @@ const double      Bestiole::NAGEOIRES=0.7;
 const double      Bestiole::OREILLES=0.7;
 const double      Bestiole::YEUX=0.7;
 
-//prend en entrée 2 flottant et renvoie un flottant aléatoire entre les deux
+//Prend en entrée 2 flottant et renvoie un flottant aléatoire entre les deux
 double Rand(double min, double max){
    int m = ceil(min*100);
    int M = floor (max * 100);
@@ -43,7 +45,7 @@ double Rand(double min, double max){
    return rand/100;
 }
 
-//constructeur
+//Constructeur
 Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    this->comp=comp;
 
@@ -105,13 +107,15 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
       oreiDist = Rand(milieu.getDistOreiMin(), milieu.getDistOreiMax());
    }
 
+   //Probabilité de mourir lors d'une collision
    collision = 0.2/multiW;
-   clonage=0;
-   //clonage=0.003;
+   //Probabilité de Clonage d'une bestiole
+   //clonage=0;
+   clonage=0.003;
 
    identite = ++next;
 
-   //Âge
+   //Âge de la bestiole
    AGE_LIM = (int) std::rand()%(1000-300)+300;
    age = 0;
 
@@ -137,7 +141,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    couleurCarap[2] = 0;
 }
 
-
+//Constructeur par copie
 Bestiole::Bestiole( const Bestiole & b){  
 
    fuis=b.fuis;
@@ -176,7 +180,7 @@ Bestiole::Bestiole( const Bestiole & b){
    this->comp=b.comp;
 }
 
-
+//Destructeur
 Bestiole::~Bestiole( void )
 {
 
@@ -185,6 +189,8 @@ Bestiole::~Bestiole( void )
    //cout << "dest Bestiole" << endl;
 
 }
+
+//Opérateur d'assignation
 Bestiole& Bestiole::operator=(const Bestiole& b){   
    if (this != &b){
 
@@ -226,6 +232,7 @@ Bestiole& Bestiole::operator=(const Bestiole& b){
    }
    return *this;
 }
+
 //Initialise les coordonnées initiales aléatoirement
 void Bestiole::initCoords( int xLim, int yLim )
 {
@@ -237,7 +244,7 @@ void Bestiole::initCoords( int xLim, int yLim )
 
 
 /*
-change la direction si la bestiole s'apprête à les dépasser
+change la direction si la bestiole à dépasser les limites du milieu
 input :  taille du milieu
 
 output: none
@@ -314,7 +321,7 @@ void Bestiole::draw( UImg & support )
 }
 
 /*
-ré-ecriture de l'opérateur ==
+Ré-ecriture de l'opérateur ==
 */
 bool operator==( const Bestiole & b1, const Bestiole & b2 )
 {
@@ -387,7 +394,7 @@ bool Bestiole::jeTeVois( const Bestiole & b ) const
    return false;
 }
 
-//setter
+//Setter
 void Bestiole::setOrientation(double orientation){
    this->orientation=orientation;
 }
@@ -396,7 +403,7 @@ void Bestiole::setVitesse(double vitesse){
    this->vitesse=vitesse;
 }
 
-//getter   
+//Getter   
 int Bestiole::getX(){
    return this->x;
 }

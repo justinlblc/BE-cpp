@@ -11,7 +11,7 @@
 
 using namespace std;
 
-//fonction de lancement de simulation
+//Fonction de lancement de simulation
 void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev){
    //Grégaire
    for (int i = 0;i<gn;i++){
@@ -35,6 +35,7 @@ void lancerSimu(Aquarium ecosysteme, int gn, int Pn, int kn, int pn, Gregaire * 
    ecosysteme.run();
    }
 
+//Simulation
 int main()
 {
    //Initialisation des comportements
@@ -86,7 +87,7 @@ int main()
       n++;
    }
 
-   //Combien veut-il de bestiole au total?
+   //Combien l'utilisateur veut-il de bestioles au total?
    int nb;
    cout << "Nombre de bestioles au total? ";
    cin >> nb;
@@ -103,12 +104,15 @@ int main()
    int largeur = 960;
    int longueur = 1280;
 
-   //Disjonction de cas
-   //----EXPLICATION----
+   //Disjonction de cas en fonction du nmbre de comportements saisis
+
+   //Tous les comportements sont saisis
    if (n==4){
       Aquarium       ecosysteme( longueur, largeur, delay, true, true, true, true, greg, kami, peur, prev);
       lancerSimu(ecosysteme, gn, Pn, kn, pn, greg, kami, peur, prev);
    }
+
+   //Si trois types de comportements sont saisis
    else if (n==3){
       if (g!=0 && k!=0 && P!=0){
          Aquarium       ecosysteme( longueur, largeur, delay, true, true, true, false, greg, kami, peur, prev);
@@ -128,7 +132,7 @@ int main()
       }
       
    }
-   //Si deux types de comportements
+   //Si deux types de comportements sont saisis
    else if (n==2){
       if (g!=0 && k!=0){
          Aquarium       ecosysteme( longueur, largeur, delay, true, true, false, false, greg, kami, peur, prev);

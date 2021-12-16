@@ -7,6 +7,8 @@
 
 using namespace std;
 
+
+//Constructeur
 MultiBestiole::MultiBestiole(Milieu & milieu,  Gregaire * greg, Kamikaze * kami, Peureuse * peur, Prevoyante * prev):Bestiole(milieu, greg){
     //Propre à la classe MultiBestiole
     this->b1=b1;
@@ -25,6 +27,7 @@ MultiBestiole::MultiBestiole(Milieu & milieu,  Gregaire * greg, Kamikaze * kami,
     this->setCouleur(this->comp->getCouleur());
 }
 
+//Constructeur par copie
 MultiBestiole::MultiBestiole( const MultiBestiole & b):Bestiole(b){
     this->greg=b.greg;
     this->kami=b.kami;
@@ -32,10 +35,13 @@ MultiBestiole::MultiBestiole( const MultiBestiole & b):Bestiole(b){
     this->prev=b.prev;
 }
 
+//Déplacement de la multibestiole à chaque pas de la simulation
 void MultiBestiole::action(Milieu & monMilieu){
+    //Nouveau comportement tous les 100 pas de simulation
     if (this->age%100==0 && this->age!=0){
         //cout<<"Avant: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
         cout<<"Age limite "<<this->getAgeLim()<< " âge réel "<<this->getAge()<<endl;
+        //Nouveau comportement
         this->setRandComp(monMilieu);
         //cout<<"Après: "<<"Bestiole: "<< identite<<", âge: "<<this->age<<", Comportement:"<<this->comp->getId()<<endl;
         this->setCouleur(this->comp->getCouleur());
@@ -45,6 +51,12 @@ void MultiBestiole::action(Milieu & monMilieu){
     age++;
 }
 
+/*
+Fonction qui renvoie un comportement aléatoire parmis ceux choisis par l'utilisateur
+
+Input: Milieu
+Output: None
+*/
 void MultiBestiole::setRandComp(Milieu & monMilieu){
     cout<<"Bug?"<<endl;
     int i = rand()% 4 +1;
@@ -71,12 +83,22 @@ void MultiBestiole::setRandComp(Milieu & monMilieu){
     }       
 }
 
+/*
+Changement de la couleur de la bestiole
+Input: Couleur en question
+Output: None
+*/
 void MultiBestiole::setCouleur(T * coul){
     couleur[0]=coul[0];
     couleur[1]=coul[1];
     couleur[2]=coul[2];
 }
 
+/*
+Fonction permettant de savoir si la bestiole est une multibestiole
+Input: None
+Output: Booléen
+*/
 bool MultiBestiole::isMulti() const{
     return true;
 }

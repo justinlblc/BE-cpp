@@ -46,6 +46,7 @@ void Gregaire::comp(Bestiole& b, Milieu & monMilieu){
     }
 }
 
+//Getter
 T *Gregaire::getCouleur(){
     return this->couleur;
 }
