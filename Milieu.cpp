@@ -11,6 +11,11 @@
 #include <ctime>
 #include <cmath>
 #include <memory>
+#include <fstream>
+#include <cstdint>
+
+
+
 
 const T    Milieu::white[] = { (T)255, (T)255, (T)255 };
 
@@ -30,8 +35,7 @@ const double    Milieu::camoMin=0;
    //Maximum (plus petit que 1)
 const double    Milieu::camoMax=1;
 
-//naissance
-
+//proaba de naissance spontané
 const double Milieu::naissance=0.05;
 //yeux
 const double    Milieu::alphaMin = 0;
@@ -101,58 +105,119 @@ Output: None
 void Milieu::naissanceSpont(){
    double nait = static_cast<double>( std::rand() )/RAND_MAX;
    if (nait<this->naissance){
-      cout<<nait<<endl;
+      //cout<<nait<<endl;
       int i = std::rand()% 5 +1;
       //cout<<"Nombre aléatoire: "<<i<<endl;
       if (i==1 && this->b1==true){
          Bestiole * b = new Bestiole(*this, this->greg);
          //this->addMember(*(new Bestiole(*this, this->greg)));
          addMember(*b);
-         cout<<"Naissance spontanée Grégaire."<<endl;
+         //cout<<"Naissance spontanée Grégaire."<<endl;
       }
       else if (i==2 && this->b2==true){
          Bestiole * b = new Bestiole(*this, this->kami);
          //this->addMember(*(new Bestiole(*this, this->kami)));
          addMember(*b);
-         cout<<"Naissance spontanée Kamikaze."<<endl;
+         //cout<<"Naissance spontanée Kamikaze."<<endl;
       }
       else if (i==3 && this->b3==true){
          Bestiole * b = new Bestiole(*this, this->peur);
          //this->addMember(*(new Bestiole(*this, this->peur)));
          addMember(*b);
-         cout<<"Naissance spontanée Peureuse."<<endl;
+         //cout<<"Naissance spontanée Peureuse."<<endl;
       }
       else if (i==4 && this->b4==true){
          Bestiole * b = new Bestiole(*this, this->prev);
          //this->addMember(*(new Bestiole(*this, this->prev)));
          addMember(*b);
-         cout<<"Naissance spontanée Prévoyante."<<endl;
+         //cout<<"Naissance spontanée Prévoyante."<<endl;
       }
       else if (i==5){
          Bestiole * b = new MultiBestiole(*this, this->greg, this->kami, this->peur, this->prev);
          //this->addMember(*(new MultiBestiole(*this, b1, b2, b3, b4, this->greg, this->kami, this->peur, this->prev)));
          addMember(*b);
-         cout<<"Naissance spontanée Multibestiole"<<endl;        
+         //cout<<"Naissance spontanée Multibestiole"<<endl;        
       }
       else {
          naissanceSpont();
       }
    }
+
 }
 
 // Fonction lancée toutes les "delay" Millisecondes (définie dans milieu)
 void Milieu::step( void ){
+
+
+
    cimg_forXY( *this, x, y ) fillC( x, y, 0, white[0], white[1], white[2] );
-   //Naissance spontanée
-   naissanceSpont();
    
    //Mouvement des bestioles à chaque pas de la simulation
    int t = listeBestioles.size();
+   int  compteurGregaire=0;
+   int  compteurKamikaze=0;
+   int  compteurPrevoyante=0;
+   int  compteurPeureuse=0;
+   int carap=0;
+   int pasCarap=0;
+   int camo=0;
+   int pasCamo=0;
+   int nageoires=0;
+   int pasNageoires=0;
+   double vitesse=0;
+
    for ( int i = 0; i<t;i++)
    {
       listeBestioles[i]->action( *this );
       listeBestioles[i]->draw( *this );
+      if (listeBestioles[i]->hasCarap()) {
+         carap++;
+      }
+      else {
+         pasCarap++;
+      }
+
+      if (listeBestioles[i]->hasCamo()) {
+         camo++;
+      }
+      else {
+         pasCamo++;
+      }
+
+      if (listeBestioles[i]->hasNageoires()) {
+         nageoires++;
+      }
+      else {
+         pasNageoires++;
+      }
+
+      vitesse+=listeBestioles[i]->getVitesse();
+      int s = static_cast<int>(listeBestioles[i]->getComp()->getCouleur()[0]);
+      if (s==248){
+         compteurGregaire++;
+      }
+      else if (s==39){
+         compteurKamikaze++;
+      }
+
+      else if (s==82){
+         compteurPeureuse++;
+      }
+
+      else if (s==238){
+         compteurPrevoyante++;
+      }
    }
+
+   vitesse=vitesse/listeBestioles.size();
+
+   std::string sFile("myFile.txt");
+   std::ofstream file(sFile, std::ios::app);
+   file << compteurGregaire++ << ";" << compteurKamikaze++ << ";" << compteurPeureuse++ <<";"<<compteurPrevoyante++ <<";"<<carap<<";"<<pasCarap<<";" <<vitesse<<";"<<camo<<";"<<pasCamo<<";"<<nageoires<<";"<<pasNageoires<<";"<< std::endl;  // (std::endl = Saut de ligne )
+
+
+//Naissance spontanée
+   naissanceSpont();
 
    //mort spontanée
 

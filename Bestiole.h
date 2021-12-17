@@ -94,6 +94,9 @@ public :                                                 // Forme canonique :
    Comportement *getComp();
    bool getFuis(){return fuis;};
    double getDist();
+   bool hasCarap();
+   bool hasCamo();
+   bool hasNageoires();
 
    virtual bool isMulti() const;
 };

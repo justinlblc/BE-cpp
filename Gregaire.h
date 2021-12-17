@@ -11,12 +11,13 @@ class Bestiole;
 class Milieu;
 
 class Gregaire : virtual public Comportement {
+private:
 
+    static int compteurGregaire;
 public:
     Gregaire(void);
     void comp(Bestiole& b, Milieu & monMilieu);
     T * getCouleur();
-
 };
 
 #endif

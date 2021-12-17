@@ -7,6 +7,8 @@
 
 using namespace std;
 
+int Gregaire::compteurGregaire=0;
+
 //Constructeur
 Gregaire::Gregaire(void){
     couleur = new T[3];

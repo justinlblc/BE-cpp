@@ -52,7 +52,7 @@ int main()
    Prevoyante * prev = &prevoyante;
    
    //Temps en millisecondes entre chaque étapes de la simulation
-   double delay = 30;
+   double delay = 10;
 
    //int n: compteur du nombre de comportements envisagés par l'utilisateur
    int n = 0;

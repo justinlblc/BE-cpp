@@ -28,7 +28,7 @@ T                *Bestiole::couleurCarap = new T[3];
 
 //Accessoires
    //Probabilités d'avoir des accessoires
-const double      Bestiole::CARAPACE=0.7;
+const double      Bestiole::CARAPACE=0.5;
 const double      Bestiole::CAMOUFLAGE=0.7;
 const double      Bestiole::NAGEOIRES=0.7;
 
@@ -111,7 +111,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    collision = 0.2/multiW;
    //Probabilité de Clonage d'une bestiole
    //clonage=0;
-   clonage=0.003;
+   clonage=0.002;
 
    identite = ++next;
 
@@ -124,6 +124,7 @@ Bestiole::Bestiole( Milieu & milieu, Comportement * comp){
    cumulX = cumulY = 0.;
    orientation = static_cast<double>( rand() )/RAND_MAX*2.*M_PI;
    vitesse = (multiV*static_cast<double>( rand() )/RAND_MAX*MAX_VITESSE)/multiRedV;
+   //vitesse=MAX_VITESSE/2;
 
    if (vitesse>MAX_VITESSE){
       vitesse = MAX_VITESSE;
@@ -445,6 +446,33 @@ Comportement *Bestiole::getComp(){
    return this->comp;
 }
 
+bool Bestiole::hasCarap(){
+   if (this->multiRedV>1){
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+bool Bestiole::hasCamo(){
+   if (this->camo > 0){
+      return true;
+   }
+   else {
+      return false;
+   }
+}
+
+//Est-ce que la bestiole a des nageoires ?
+bool Bestiole::hasNageoires(){
+   if (this->multiV > 1){
+      return true;
+   }
+   else {
+      return false;
+   }
+}
 
 //La bestiole n'est pas une MultiBestiole
 bool Bestiole::isMulti() const{
